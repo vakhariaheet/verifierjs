@@ -203,3 +203,98 @@ export const isAgeValid = (dob: string, requiredAge: number = 18): boolean => {
   if (age >= requiredAge) return true;
   return false;
 };
+//
+/** Hex To RGBA Converter
+ * * Hex must be 9/7/5/4 characters long ( With '#' )
+ *
+ * @param hex  hexadecimal color
+ * @param alpha(optional) opacity
+ * @returns rgba string
+ * @example
+ * ("#ffffff") => rgba(255,255,255,1)
+ * ("#000",0.1) => rgba(0,0,0,.1)
+ * ("#000C") => rgba(0,0,0,0.8)
+ * ("#000",0.5) => rgba(0,0,0,.5);
+ */
+export const hextoRGB = (hex: string, alpha?: number) => {
+  //* Remove # from hex string
+  hex = hex.match(/\w/g)?.join("") as string;
+  if (hex.length === 3) {
+    hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+  }
+  if (hex.length === 4) {
+    hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`;
+  }
+  //* getting RGB hex value (hex:#RRGGBB)
+  const colors = hex.match(/.{1,2}/g) as string[];
+  //* Converting hex Rgb value into rgb values
+
+  const rgbaValues: number[] = (colors as string[]).map((color) =>
+    parseInt(color, 16)
+  );
+  //*Checking if given hex is 3 digit long
+  if (hex.length === 8) {
+    const alpha = (parseInt(hex[6], 16) * 16 + parseInt(hex[7], 16)) / 255;
+    rgbaValues[3] = alpha;
+  } else if (!alpha) {
+    rgbaValues.push(1);
+  } else if (alpha) {
+    rgbaValues.push(alpha);
+  }
+  const rgba = `rgba(${rgbaValues.join(",")})`;
+  return rgba;
+};
+/**
+ * Convert RGBA value to hex(#RRGGBBAA/#RRGGBB)
+ *
+ * @param   {number}  red      0-255
+ * @param   {number}  blue     0-255
+ * @param   {number}  green    0-255
+ * @param   {number} alpha     0-1 (default 1)
+ * @return  {string}  hex
+ * @example
+ * (255,255,255,1) => #ffffff
+ * (255,255,255,.8) => #ffffffcc
+ */
+export const rgbToHex = (
+  red: number,
+  blue: number,
+  green: number,
+  alpha: number = 1
+): string => {
+  //* Converting red into hex red
+  const hexRed = red.toString(16).padStart(2, "0");
+  //* Converting red into hex green
+  const hexGreen = green.toString(16).padStart(2, "0");
+  //* Converting red into hex blue
+  const hexBlue = blue.toString(16).padStart(2, "0");
+  //* Converting alpha into hex alpha
+  //** Multiplying alpha * 255 and removing all decimal points
+  //** converting 255 decimal number to  2 digit hexstring
+  const hexAlpha =
+    Number((alpha * 255).toFixed())
+      .toString(16)
+      .padStart(2, "0") === "ff"
+      ? ""
+      : Number((alpha * 255).toFixed())
+          .toString(16)
+          .padStart(2, "0");
+
+  return `#${hexRed}${hexGreen}${hexBlue}${hexAlpha}`;
+};
+/**
+ *
+ * @param rgba rgba/rgb string
+ * @returns hex
+ * @example
+ * 'rgb(0,0,0)' => #000000
+ * 'rgba(0,0,0,.8)' => #000000CC
+ */
+export const rgbStrToHex = (rgba: string) => {
+  const rgbValues = rgba
+    .split("(")[1]
+    .split(")")[0]
+    .split(",")
+    .map((value) => Number(value));
+  return rgbToHex(rgbValues[0], rgbValues[1], rgbValues[2], rgbValues[4]);
+};

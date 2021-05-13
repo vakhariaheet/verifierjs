@@ -26,7 +26,6 @@ const verifier = require('verifierjs');
 
 ```
 // isUsername
-
 verifier.isUsername('username')// returns true
 verifier.isUsername('username',/\w{1,}/)// returns true
 
