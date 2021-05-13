@@ -1,0 +1,22 @@
+{
+  "name": "verifierjs",
+  "version": "0.0.1",
+  "description": "functions for validation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "prepublish": "tsc",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "validate",
+    "validation",
+    "varify",
+    "verification"
+  ],
+  "author": "vakharia_heet",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  }
+}
