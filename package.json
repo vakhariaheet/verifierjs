@@ -1,6 +1,6 @@
 {
   "name": "verifierjs",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "functions for validation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,12 +24,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heet-vakharia/validster.git"
+    "url": "git+https://github.com/vakhariaheet/verifier.git"
   },
   "bugs": {
-    "url": "https://github.com/heet-vakharia/validster/issues"
+    "url": "https://github.com/vakhariaheet/verifier/issues"
   },
-  "homepage": "https://github.com/heet-vakharia/validster#readme",
+  "homepage": "https://github.com/vakhariaheet/verifier#readme",
   "devDependencies": {
     "typescript": "^4.2.4"
   }
