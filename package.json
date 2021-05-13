@@ -15,8 +15,5 @@
     "verification"
   ],
   "author": "vakharia_heet",
-  "license": "ISC",
-  "devDependencies": {
-    "typescript": "^4.2.4"
-  }
+  "license": "MIT"
 }
