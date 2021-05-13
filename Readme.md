@@ -1,4 +1,4 @@
-# verifier
+# Verifier
 
 A js library for utils functions
 
@@ -7,9 +7,9 @@ A js library for utils functions
 
 ## Installation
 
-`$ npm install verifierjs --save`
+`npm install verifierjs --save`
 
-`$ yarn add verifierjs`
+`yarn add verifierjs`
 
 ## Import
 
@@ -37,11 +37,11 @@ verifier.isPassword('secret',/.{1,}/) // returns true
 
 // isUsernameRT
 verifier.isUsernameRT('username') // returns { start: false, syntax: false}
-verifier.isUsernameRT('username',{lenght:/\w{3,}/}) // returns {lenght : false}
+verifier.isUsernameRT('username',{length:/\w{3,}/}) // returns {length : false}
 
 // isPasswordRT
 verifier.isPasswordRT('secret') // returns {length :true,lowercase:false,uppercase :true,symbol: true};
-verifier.isPasswordRT('secret',{lenght:/\w{3,}/}) //returns {lenght:false}
+verifier.isPasswordRT('secret',{length:/\w{3,}/}) //returns {length:false}
 
 // isEmail
 verifier.isEmail('wrongEmail@.com') // returns false
@@ -68,10 +68,10 @@ Username Default syntax
 
 Password Default syntax
 
-- must contain aleast one lowercase letter
-- must contain aleast one uppercase letter
-- must contain aleast one symbol or number
-- length must be aleast 8 characters long
+- must contain at least one lowercase letter
+- must contain at least one uppercase letter
+- must contain at least one symbol or number
+- length must be at least 8 characters long
 
 Age
 

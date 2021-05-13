@@ -93,10 +93,10 @@ export const isUsername = (value: string, customRegex?: RegExp): boolean => {
 /**
  * Checks Password syntax
  *  - Default Password syntax
- *    1. must contain aleast one lowercase letter
- *    2. must contain aleast one uppercase letter
- *    3. must contain aleast one symbol or number
- *    4. length must be aleast 8 characters long
+ *    1. must contain at least one lowercase letter
+ *    2. must contain at least one uppercase letter
+ *    3. must contain at least one symbol or number
+ *    4. length must be at least 8 characters long
  * - Default Password syntax can be changed by passing customRegexObj as param
  * @param value string to verify
  * @param customRegexObj {[errName]:regex,...}
@@ -189,7 +189,7 @@ export const ageCalc = (date: string): number => {
 /**
  * Calculates age and returns if age is valid for required age
  * @param dob user dob(format YY-MM-DD)
- * @param  requiredAge  mininum age (default 18)(optional)
+ * @param requiredAge  expected minimum age (default 18)(optional)
 
  * @returns Boolean | if age is valid
  * @example
