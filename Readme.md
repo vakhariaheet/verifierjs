@@ -73,33 +73,43 @@ verifier.ageCalc('2000-02-22') //  21
 verifier.isAgeValid('2005-02-22') // returns false
 verifier.isAgeValid('2000-02-22') // returns true
 verifier.isAgeValid('2005-02-22',14) // returns true
+
 // HEX to RGB/RGBA
-verifier.hextoRGB("#2d2d2d") // returns rgb(45,45,45);
-verifier.hextoRGB("#2d2d2dcc") // returns rgba(45,45,45,.8);
+verifier.hexToRgb('#2d2d2d') // returns rgb(45,45,45);
+verifier.hexToRgb('#2d2d2dcc') // returns rgba(45,45,45,.8);
+
 // HEX to HSL/HSLA
 verifier.hexToHsl('#fff') // returns hsl(0,0%,100%)
+
 //RGBA/RGB to HEX
 verifier.rgbToHex(255,255,255,.8)// returns #ffffffcc
 verifier.rgbToHex(255,255,255)// returns #ffffff
+
 //RGBA/RGB String to HEX
 verifier.rgbStrToHex('rgba(255,255,255,.8)')// returns #ffffffcc
 verifier.rgbStrToHex('rgb(255,255,255)')// returns #ffffff
+
 // RGB/RGBA to HSL/HSLA
-verifier.rgbToHsl(33,33,33) // returns "hsl(0,0%,13%)"
-verifier.rgbToHsl(0,0,0,.5) // returns "hsla(0,0%,0%,0.5)"
+verifier.rgbToHsl(33,33,33) // returns 'hsl(0,0%,13%)'
+verifier.rgbToHsl(0,0,0,.5) // returns 'hsla(0,0%,0%,0.5)'
+
 // RGB/RGBA String to HSL/HSLA
-verifier.rgbStrToHsl('rgb(33,33,33)') // "hsl(0,0%,13%)"
-verifier.rgbStrToHsl('rgba(0,0,0,.5)') // returns "hsla(0,0%,0%,0.5)"
+verifier.rgbStrToHsl('rgb(33,33,33)') // 'hsl(0,0%,13%)'
+verifier.rgbStrToHsl('rgba(0,0,0,.5)') // returns 'hsla(0,0%,0%,0.5)'
+
 // HSL/HSLA to RGB/RGBA
 verifier.hslToRgb(500, 0.5, 0.5) // returnsrgb(64,191,106)
-verifier.hslToRgb(500, "50%", '50%') // returnsrgb(64,191,106)
+verifier.hslToRgb(500, '50%', '50%') // returnsrgb(64,191,106)
 verifier.hslToRgb(500, 0.5, 0.5,.5) // returns rgb(64,191,106,.5)
+
 // HSL/HSLA String to RGB/RGBA
 verifier.hslStrToRgb('hsl(500, 50%, 50%)') // returns rgb(64,191,106)
 verifier.hslStrToRgb('hsla(500, 0.5, 0.5,.5)') // returns rgba(64,191,106,.5)
+
 // HSL/HSLA to HEX
 verifier.hslToHex(50,'50%','50%') // returns #bfaa40
 verifier.hslToHex(150,.5,.5) // returns #40bf80
+
 // HSL/HSLA String to HEX
 verifier.hslStrToHex('hsl(50,50%,50%)') // returns #bfaa40
 verifier.hslToHex('hsla(150,.5,.5,.8)') // returns #40bf80cc
@@ -130,3 +140,24 @@ UsernameRT & PasswordRT customRegexObj (optional)
     ...
 }
 ```
+
+- Form Functions
+  1. isUsername
+  2. isUsernameRT
+  3. isPassword
+  4. isPasswordRT
+  5. isEmail
+  6. isLengthen
+  7. ageCalc
+  8. isAgeValid
+- Color Conversion Functions
+  1. hexToRgb
+  2. hexToHsl
+  3. rgbToHex
+  4. rgbStrToHex
+  5. rgbToHsl
+  6. rgbStrToHsl
+  7. hslToHex
+  8. hslStrToHex
+  9. hslToRgb
+  10. hslStrToRgb
