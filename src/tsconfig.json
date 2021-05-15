@@ -2,12 +2,11 @@
   "compilerOptions": {
     "target": "ES2017",
     "module": "CommonJS",
-    "outDir": "./dist",
+
+    "outDir": "../dist",
     "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
     "strict": true
   },
-  "include": ["*"],
+  "include": ["*", "src/index.ts", "src/Color.ts"],
   "exclude": ["node-modules", "dist"]
 }

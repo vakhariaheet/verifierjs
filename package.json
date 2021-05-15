@@ -1,34 +1,39 @@
 {
   "name": "verifierjs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "functions for validation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "prepublish": "npm run build",
   "files": [
-    "index.js"
+    "dist/**/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc --build src/tsconfig.json"
   },
   "keywords": [
     "validate",
     "validation",
     "verify",
     "checker",
-    "realtime validation",
+    "realtimeValidation",
     "verification",
-    "string verification",
     "typescript",
-    "form validation",
+    "form",
     "verifier",
+    "string",
     "rgb",
-    "rgb to hex",
+    "rgb2hex",
     "hex",
-    "hex to rgb",
+    "hex2rgb",
     "rgba",
-    "rgba to hex"
+    "rgba2hex",
+    "hsl2hex",
+    "hex2hsl",
+    "hsl2rgb",
+    "hex2rgb",
+    "rgb2hsl"
   ],
   "author": "vakharia_heet",
   "license": "MIT",
