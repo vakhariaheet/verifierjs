@@ -79,7 +79,7 @@ verifier.custom("hello", {
       length: 5,
       start: "he",
       end: "wrong",
-      includes: includes("heslaja"),
+      includes: verifier.includes("heslaja"),
       excludes: "wholeHello",
     }) // returns {
       //          length: false,
@@ -93,12 +93,12 @@ verifier.custom(
      {
        length: "gt2",
        local: {
-         vstr: includes("a-zA-Z0-9"),
+         vstr: verifier.includes("a-zA-Z0-9"),
          length: "gt1 lt7",
        },
-       domain: includes("a-zA-Z"),
+       domain: verifier.includes("a-zA-Z"),
        address: {
-         vstr: includes("a-zA-Z0"),
+         vstr: verifier.includes("a-zA-Z0"),
          length: "lt10",
          continues: true,
        },
