@@ -1,7 +1,7 @@
 {
   "name": "verifierjs",
-  "version": "0.0.5",
-  "description": "functions for validation",
+  "version": "0.1.0",
+  "description": "functions for validation and color conversion",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "prepublish": "npm run build",
@@ -9,8 +9,9 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --build src/tsconfig.json"
+    "test": "jest",
+    "build": "tsc --build src/tsconfig.json",
+    "dev": "tsc --build src/tsconfig.json --watch"
   },
   "keywords": [
     "validate",
@@ -46,6 +47,9 @@
   },
   "homepage": "https://github.com/vakhariaheet/verifier#readme",
   "devDependencies": {
-    "typescript": "^4.2.4"
-  }
+    "jest": "^26.6.3",
+    "typescript": "^4.2.4",
+    "@types/jest": "^26.0.23"
+  },
+  "dependencies": {}
 }
