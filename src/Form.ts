@@ -589,7 +589,6 @@ export const custom = (
     Object.keys(regexsStr).map((err) => {
       regex += regexsStr[err];
     });
-    console.log(new RegExp(regex));
     errors.vstr = !new RegExp(regex).test(value);
   }
 

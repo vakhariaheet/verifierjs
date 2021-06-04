@@ -222,7 +222,7 @@ rstr:
   - Add a simple string in the rstr.
   #### Example 
     ```javascript
-    {local}@{domain}\.{address}
+    {local}@{domain}.{address}
     ```
 
 - Form Functions
