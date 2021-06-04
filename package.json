@@ -2,11 +2,12 @@
   "name": "verifierjs",
   "version": "0.1.2",
   "description": "functions for validation and color conversion",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "prepublish": "npm run build",
   "files": [
-    "dist/**/*"
+    "./dist/index.js",
+    "./dist/index.d.ts"
   ],
   "scripts": {
     "test": "jest",
@@ -23,18 +24,7 @@
     "typescript",
     "form",
     "verifier",
-    "string",
-    "rgb",
-    "rgb2hex",
-    "hex",
-    "hex2rgb",
-    "rgba",
-    "rgba2hex",
-    "hsl2hex",
-    "hex2hsl",
-    "hsl2rgb",
-    "hex2rgb",
-    "rgb2hsl"
+    "string"
   ],
   "author": "vakharia_heet",
   "license": "MIT",
