@@ -1,6 +1,6 @@
 {
   "name": "verifierjs",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "functions for validation and color conversion",
   "main": "index.js",
   "types": "index.d.ts",
