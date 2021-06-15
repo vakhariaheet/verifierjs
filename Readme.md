@@ -14,4 +14,4 @@ A tiny js library for Form validation.
   2. isCorrect: return true if all Validation is successful(can return number also)
   3. ageCalc : Calculates Age
 
-  #### [Detailed Documentation]("https://github.com/vakhariaheet/verifierjs#readme")
+  #### <a href="https://github.com/vakhariaheet/verifierjs#readme">Detailed Docs</a>
