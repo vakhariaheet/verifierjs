@@ -7,7 +7,9 @@ test("isUsername", () => {
 test("isPassword", () => {
   expect(new Verifier("secret").isPassword().correct).toBe(false);
   expect(new Verifier("secreT@123").isPassword().correct).toBe(true);
-  expect(new Verifier("secret").isPassword(/.{1,}/).correct).toBe(true);
+  expect(new Verifier("secret").isPassword({ hello: /.{1,}/ }).correct).toBe(
+    true
+  );
 });
 test("isEmail", () => {
   expect(new Verifier("wrongEmail").isEmail().correct).toBe(false);
@@ -15,13 +17,13 @@ test("isEmail", () => {
 });
 test("Chain", () => {
   expect(
-    new Verifier("Hello").isUsername().isLengthen("gt4").getDetails()
+    new Verifier("Hello").isUsername().isLengthen("gt4").details
   ).toStrictEqual({ length: true, start: true, syntax: true });
   expect(
     new Verifier("Hello").isUsername().isLengthen("gt4").isCorrect(true)
   ).toStrictEqual(1);
   expect(
-    new Verifier("Hello").isUsername().isLengthen("gt4").array()
+    new Verifier("username").isUsername().isLengthen("gt4 lt30").array()
   ).toStrictEqual([
     ["start", "syntax", "length"],
     [true, true, true],

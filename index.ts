@@ -261,23 +261,7 @@ class Verifier {
   isCorrect(inNumber: boolean): number | boolean {
     return inNumber ? Number(this.correct) : this.correct;
   }
-  /**
-   * @returns `details` object
-   */
-  getDetails() {
-    return this.details;
-  }
-  createFunction() {
-    return (value: string) => {
-      this.value = value;
-      this.functionUsed.forEach((func) => {
-        const functionName = Object.keys(func)[0];
-        eval(
-          `this.${functionName}(${Object.values(func[functionName]).join(",")})`
-        );
-      });
-    };
-  }
+
   /**
    *  Calculates Age
    * @param date DOB(format : YY-MM-DD)
