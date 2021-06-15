@@ -266,7 +266,17 @@ class Verifier {
   getDetails() {
     return this.details;
   }
-
+  createFunction() {
+    return (value: string) => {
+      this.value = value;
+      this.functionUsed.forEach((func) => {
+        const functionName = Object.keys(func)[0];
+        eval(
+          `this.${functionName}(${Object.values(func[functionName]).join(",")})`
+        );
+      });
+    };
+  }
   /**
    *  Calculates Age
    * @param date DOB(format : YY-MM-DD)
@@ -288,4 +298,3 @@ class Verifier {
     return age;
   }
 }
-export default Verifier;
