@@ -1,0 +1,10 @@
+- Functions
+  1. isUsername
+  2. isUsernameRT
+  3. isPassword
+  4. isPasswordRT
+  5. isEmail
+  6. isLengthen
+  7. ageCalc
+  8. isAgeValid
+  9. custom
