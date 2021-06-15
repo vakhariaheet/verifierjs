@@ -116,6 +116,7 @@ class Verifier {
     if (typeof length === "number") {
       correct = length === _value.length;
       this.details.length = correct;
+      this.correct = correct;
       return this;
     }
     if (lowerlimit && upperlimit) {
@@ -142,8 +143,8 @@ class Verifier {
    * - Also affects `correct`
    * - Also can be chained behind or before any other chaineble verification methods
    * - to update length just add isLengthen function behind this function. or custom regex
-   * @param {string} value `optional` string to verify
    * @param {object} customRegexObj `optional` {[errName]:regex,...}
+   * @param {string} value `optional` string to verify
    *  @example
    * ('username') => true
    * ('$wrongUsername') => false
@@ -152,7 +153,7 @@ class Verifier {
    * ('username',{ length:/.{4,}/,start:/^[a-zA-Z]{1,}/} ) => true
    */
   //* Checks if value is a valid username and if not returns object with errors
-  isUsername(_value: string = this.value, customRegexObj?: object) {
+  isUsername(customRegexObj?: object, _value: string = this.value) {
     this.value = _value;
     let errors: errorsObj = {
       start: false,
@@ -200,15 +201,15 @@ class Verifier {
    * - Also affects `correct`
    * - Also can be chained behind or before any other chaineble verification methods
    * - to update length just add isLengthen function behind this function. or custom regex
-   * @param value `optional` string to verify
    * @param customRegexObj `optional` {[errName]:regex,...}
+   * @param value `optional` string to verify
    *  @example
    *  ('hello') => false
    *  ('secreT@123') => true
    *  ('secreT',{length:/\w{1,}/}) => true
    */
   //* Checks if value is a valid password and returns errors object
-  isPasswordRT(_value: string = this.value, customRegexObj?: errorsObj) {
+  isPassword(customRegexObj?: errorsObj, _value: string = this.value) {
     this.value = _value;
     let errors: errorsObj = {
       length: false,
@@ -260,12 +261,6 @@ class Verifier {
   isCorrect(inNumber: boolean): number | boolean {
     return inNumber ? Number(this.correct) : this.correct;
   }
-  /**
-   * @returns `details` object
-   */
-  getDetails() {
-    return this.details;
-  }
 
   /**
    *  Calculates Age
@@ -277,7 +272,8 @@ class Verifier {
    * ('2000-02-22') => 21
    */
   //**  Date Format : YY-MM -DD
-  ageCalc(date: string): number {
+  ageCalc(date: string = this.value): number {
+    this.value = date;
     const dob = new Date(date);
     //* Get Month diff from current time
     const monthDiff = Date.now() - dob.getTime();
@@ -288,4 +284,4 @@ class Verifier {
     return age;
   }
 }
-export default Verifier;
+module.exports = Verifier;
