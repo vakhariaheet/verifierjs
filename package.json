@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "tsc --build src/tsconfig.json",
-    "dev": "tsc --build src/tsconfig.json --watch"
+    "build": "tsc --build tsconfig.json",
+    "dev": "tsc --build tsconfig.json --watch"
   },
   "keywords": [
     "validate",
