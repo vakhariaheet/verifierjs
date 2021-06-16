@@ -8,5 +8,5 @@
     "strict": true
   },
   "include": ["*"],
-  "exclude": ["node-modules", "dist"]
+  "exclude": ["node-modules", "dist", "jest.config.ts"]
 }
