@@ -2,6 +2,8 @@
 
 A tiny js library for Form validation.
 
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/vakhariaheet/verifierjs/master.svg?style=flat-square)](https://codecov.io/gh/vakhariaheet/verifierjs/)
+
 ## Installation
 
 ```bash
@@ -32,18 +34,18 @@ Color conversion functions are transfered to [color-converter](https://www.npmjs
 ```JavaScript
 // isUsername
 new Verifier('username').isUsername().correct// returns true
-new Verifier('$username').isUsername().isCorrect(true)// returns 0
+new Verifier('$username').isUsername().correct// returns false
 new Verifier('username').isUsername(/\w{4,}/).correct// returns true
 new Verifier('username').isUsername({length:/\w{4,}/}).details// returns {lenght:true}
 
 // isPassword
 new Verifier('secret').isPassword().correct // returns false
-new Verifier('secreT@123').isPassword().isCorrect(true) // returns 1
+new Verifier('secreT@123').isPassword().correct // returns true
 new Verifier('secret').isPassword(/.{1,}/).correct // returns true
 new Verifier('secret').isPassword({length:/.{1,}/}).details // returns{lenght:true}
 // isEmail
 new Verifier('wrongEmail@.com').isEmail().correct // returns false
-new Verifier('example@example.com.in').isEmail().isCorrect(false)// returns true
+new Verifier('example@example.com.in').isEmail().correct// returns true
 
 // isLengthen
 new Verifier('exact').isLengthen(5).correct // returns true
@@ -52,10 +54,6 @@ new Verifier('lowerthan').isLengthen('lt10').correct // returns true
 // ageCalc
 new Verifier('2005-02-22').ageCalc() //  16
 new Verifier().ageCalc('2000-02-22') //  21
-
-// isCorrect(inNumber:Boolean) - Can be use on any chaineble method
-new Verifier('example@example.com.in').isEmail().isCorrect(false)// true
-new Verifier('example@example.com.in').isEmail().isCorrect(true)// 1
 
 // array - Can be use on any chaineble method
 new Verifier('hello').isLengthen(5).array() //  returns [[length],[true]]
@@ -96,5 +94,4 @@ Age
 - Non Chaineble Methods
   1. array : returns array in which first element is array of properties(validation) names
      and second element is array of properties(validation) values
-  2. isCorrect: return true if all Validation is successful(can return number also)
-  3. ageCalc : Calculates Age
+  2. ageCalc : Calculates Age

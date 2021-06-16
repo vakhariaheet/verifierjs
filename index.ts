@@ -11,10 +11,12 @@ const lengthRegex = (lengthRequired: number | string) => {
     lowerlimit = "0";
   if (typeof lengthRequired === "string") {
     lengthRequired.split(" ").map((len) => {
-      if (len.includes("gt"))
+      if (len.includes("gt")) {
         lowerlimit = (len.match(/[0-9]{1,}/) as string[])[0];
-      else if (len.includes("lt"))
+      }
+      if (len.includes("lt")) {
         upperlimit = (len.match(/[0-9]{1,}/) as string[])[0];
+      }
     });
   }
   return { upperlimit, lowerlimit };
@@ -123,8 +125,8 @@ class Verifier {
       correct =
         Number(lowerlimit) < _value.length &&
         _value.length < Number(upperlimit);
-    } else if (lowerlimit) correct = Number(lowerlimit) < _value.length;
-    else correct = Number(upperlimit) > _value.length;
+    } else correct = Number(lowerlimit) < _value.length;
+
     this.correct = correct;
     this.details.length = correct;
     this.functionUsed.push({
@@ -135,6 +137,7 @@ class Verifier {
     });
     return this;
   }
+
   /**  Checkes Username
    * - Default Username syntax:
    *    1. Username should only start with a-z,A-Z
@@ -236,7 +239,7 @@ class Verifier {
     //- Checks if password contains a symbol or a number, if it contains then setting symbol in errors false
     errors.symbol = /[@#$%^&*!_+\-|\\/0-9]/.test(_value);
     //- Checks if length of password is 8 or greater, if it is then setting length in errors false
-    errors.length = this.isLengthen(_value, "gt8").correct;
+    errors.length = this.isLengthen("gt8", _value).correct;
     this.correct = Object.values(errors).every((v) => v);
     this.details = errors;
     this.functionUsed.push({
@@ -254,14 +257,6 @@ class Verifier {
   array() {
     return [Object.keys(this.details), Object.values(this.details)];
   }
-  /**
-   * @param {boolean} inNumber: If Output should be a number
-   * @returns `correct` variable
-   */
-  isCorrect(inNumber: boolean): number | boolean {
-    return inNumber ? Number(this.correct) : this.correct;
-  }
-
   /**
    *  Calculates Age
    * @param date DOB(format : YY-MM-DD)

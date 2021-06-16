@@ -20,8 +20,8 @@ test("Chain", () => {
     new Verifier("Hello").isUsername().isLengthen("gt4").details
   ).toStrictEqual({ length: true, start: true, syntax: true });
   expect(
-    new Verifier("Hello").isUsername().isLengthen("gt4").isCorrect(true)
-  ).toStrictEqual(1);
+    new Verifier("Hello").isUsername().isLengthen("gt4").correct
+  ).toStrictEqual(true);
   expect(
     new Verifier("username").isUsername().isLengthen("gt4 lt30").array()
   ).toStrictEqual([

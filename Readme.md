@@ -1,7 +1,10 @@
 # Verifier
 
 A tiny js library for Form validation.
-[![Codecov Coverage](https://img.shields.io/codecov/c/github/vakhariaheet/verifierjs/master.svg?style=flat-square)](https://codecov.io/gh/vakhariaheet/verifierjs/)
+
+[![Codecov Coverage](https://badgen.net/npm/node/next)](https://codecov.io/gh/vakhariaheet/verifierjs/)
+[![Codecov Coverage](https://badgen.net/codecov/c/github/vakhariaheet/verifierjs)](https://codecov.io/gh/vakhariaheet/verifierjs/)
+[![install size](https://packagephobia.com/badge?p=verifierjs)](https://packagephobia.com/result?p=verifierjs)
 
 - Chaineble Methods
   1. isUsername: Validates Username
@@ -12,7 +15,6 @@ A tiny js library for Form validation.
 
   1. array : returns array in which first element is array of properties(validation) names
      and second element is array of properties(validation) values
-  2. isCorrect: return true if all Validation is successful(can return number also)
-  3. ageCalc : Calculates Age
+  2. ageCalc : Calculates Age
 
   #### <a href="https://github.com/vakhariaheet/verifierjs#readme">Detailed Docs</a>
