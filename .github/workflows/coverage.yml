@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Compile to js
+        run: npm run build
+
       - name: Run the tests
         run: npm test -- --coverage
 
