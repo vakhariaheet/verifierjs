@@ -28,6 +28,15 @@ import { Verifier } from "verifierjs";
 const { Verifier } = require('verifierjs');
 ```
 
+```html
+<!-- Vanilla JS -->
+<script src="https://unpkg.com/browse/verifierjs/dist/index.min.js">
+  <script>
+  <script>
+    const { Verifier } = verifierjs;
+</script>
+```
+
 ##### Note
 
 Color conversion functions are transfered to [color-converter](https://www.npmjs.com/package/color-convertor)

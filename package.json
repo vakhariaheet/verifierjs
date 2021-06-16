@@ -5,14 +5,14 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "prepublish": "npm run build",
+  "browser": "dist/index.min.js",
   "files": [
     "dist/**/*"
   ],
   "scripts": {
     "test": "jest --config jest.config.ts",
-    "build": "tsc --build tsconfig.json",
-    "dev": "tsc --build tsconfig.json --watch",
-    "minify": "jsmin -o dist/index.min.js dist/index.js"
+    "build": "tsc --build tsconfig.json && rollup -c",
+    "dev": "tsc --build tsconfig.json --watch"
   },
   "keywords": [
     "validate",
@@ -37,10 +37,16 @@
   },
   "homepage": "https://github.com/vakhariaheet/verifier#readme",
   "devDependencies": {
+    "@rollup/plugin-typescript": "^8.2.1",
     "@types/jest": "^26.0.23",
     "codecov": "^3.8.2",
+    "html-webpack-plugin": "^5.3.1",
     "jest": "^26.6.3",
-    "jsmin": "^1.0.1",
+    "rollup": "^2.52.0",
+    "rollup-plugin-babel-minify": "^10.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-export-default": "^1.4.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "ts-node": "^10.0.0",
     "typescript": "^4.2.4"
   },
