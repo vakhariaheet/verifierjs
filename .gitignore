@@ -116,5 +116,4 @@ dist
 .pnp.*
 yarn.lock
 .DS_Store
-dist/
 /coverage
