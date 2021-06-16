@@ -20,12 +20,12 @@ yarn add verifierjs
 ## Import
 
 ```javascript
-import Verifier from "verifierjs";
+import { Verifier } from "verifierjs";
 ```
 
 ```JavaScript
 // CommonJS
-const Verifier = require('verifierjs');
+const { Verifier } = require('verifierjs');
 ```
 
 ##### Note

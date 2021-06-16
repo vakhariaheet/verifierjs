@@ -1,4 +1,4 @@
-const Verifier = require("./../dist/index.js");
+const { Verifier } = require("../dist/index.js");
 test("isUsername", () => {
   expect(new Verifier("username").isUsername().correct).toBe(true);
   expect(new Verifier("$username").isUsername().correct).toBe(false);

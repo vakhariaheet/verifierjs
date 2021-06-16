@@ -53,7 +53,7 @@ const checkCustomRegex = (customRegexObj: any, value: string): errorsObj => {
  * ```
  *
  */
-class Verifier {
+export class Verifier {
   value: string;
   correct: boolean;
   details: {
@@ -279,4 +279,3 @@ class Verifier {
     return age;
   }
 }
-module.exports = Verifier;
