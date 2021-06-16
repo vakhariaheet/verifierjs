@@ -32,7 +32,7 @@ test("Chain", () => {
 test("isLengthen", () => {
   expect(new Verifier("hello").isLengthen(5).correct).toBe(true);
   expect(new Verifier("lt15").isLengthen("lt5").correct).toBe(true);
-  expect(new Verifier("greaterthan").isLengthen("gt14").correct).toBe(false);
+  expect(new Verifier("greaterthan").isLengthen("gt4").correct).toBe(true);
   expect(new Verifier("both").isLengthen("gt4 lt10").correct).toBe(false);
 });
 test("ageCalc", () => {
