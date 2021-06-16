@@ -83,6 +83,7 @@ out
 # Nuxt.js build / generate output
 .nuxt
 
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
@@ -116,3 +117,4 @@ out
 yarn.lock
 .DS_Store
 /coverage
+/dist
