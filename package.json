@@ -2,8 +2,8 @@
   "name": "verifierjs",
   "version": "0.4.4",
   "description": "functions for validation and color conversion",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "prepublish": "npm run build",
   "files": [
     "dist/**/*"
