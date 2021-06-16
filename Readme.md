@@ -2,7 +2,7 @@
 
 A tiny js library for Form validation.
 
-[![Codecov Coverage](https://badgen.net/npm/node/next)](https://codecov.io/gh/vakhariaheet/verifierjs/)
+![Codecov Coverage](https://badgen.net/npm/node/next)
 [![Codecov Coverage](https://badgen.net/codecov/c/github/vakhariaheet/verifierjs)](https://codecov.io/gh/vakhariaheet/verifierjs/)
 [![install size](https://packagephobia.com/badge?p=verifierjs)](https://packagephobia.com/result?p=verifierjs)
 
