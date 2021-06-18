@@ -36,9 +36,7 @@ const checkCustomRegex = (customRegexObj: any, value: string): errorsObj => {
   return errors;
 };
 /**
- * @param {string} value Default string for functions
- * #### Note
- * - Default String Changes for the function after the function in which string is specified.
+ * @param {string} value string to verify for methods
  * @return {object}
  * ``` Javascript
  * {
@@ -54,11 +52,15 @@ const checkCustomRegex = (customRegexObj: any, value: string): errorsObj => {
  *
  */
 export class Verifier {
+  /** The String on which verification will be applied */
   value: string;
+  /** True If the string(this.value,ie the string passed while creating new Verifier) passes all verification methods */
   correct: boolean;
+  /** A detailed Form of `correct` */
   details: {
     [property: string]: boolean;
   };
+  /** All the method used on the chain */
   functionUsed: {
     [Function: string]: { [param: string]: string | Object };
   }[];
@@ -68,10 +70,10 @@ export class Verifier {
     this.details = {};
     this.functionUsed = [];
   }
+
   /**
    * Check if Email is valid.
    *
-   * @param {string} _value `optional`:email to check. default will be the string provider while creating new verifier or the string provider in function before this in the function chain
    * - Addes email property in `details` obj
    * - Also affects `correct`
    * - Also can be chained behind or before any other chaineble verification methods
@@ -79,8 +81,7 @@ export class Verifier {
    * 'example@domain.co.org' => true
    * 'wrongEmail@.co' => false
    */
-  isEmail(_value: string = this.value) {
-    this.value = _value;
+  isEmail() {
     if (/\w{1,}@\w{1,}\.(\w{1,})+/.test(this.value)) {
       this.correct = true;
       this.details.email = true;
@@ -89,15 +90,12 @@ export class Verifier {
       this.details.email = false;
     }
     this.functionUsed.push({
-      isEmail: {
-        _value: this.value,
-      },
+      isEmail: {},
     });
     return this;
   }
   /**
    *
-   * @param {string} value :`optional` string to verify. default will be the string provider while creating new verifier or the string provider in function before this in the function chain
    * @param {number} length : length string
    * - Addes `length` property in `details` obj
    * - Also affects `correct`
@@ -111,28 +109,26 @@ export class Verifier {
    * ("short",7) => false
    */
   //* Checks Length of value is greater or equal to given required length
-  isLengthen(length: number | string, _value: string = this.value) {
-    this.value = _value;
+  isLengthen(length: number | string) {
     const { upperlimit, lowerlimit } = lengthRegex(length);
     let correct = true;
     if (typeof length === "number") {
-      correct = length === _value.length;
+      correct = length === this.value.length;
       this.details.length = correct;
       this.correct = correct;
       return this;
     }
     if (lowerlimit && upperlimit) {
       correct =
-        Number(lowerlimit) < _value.length &&
-        _value.length < Number(upperlimit);
-    } else correct = Number(lowerlimit) < _value.length;
+        Number(lowerlimit) < this.value.length &&
+        this.value.length < Number(upperlimit);
+    } else correct = Number(lowerlimit) < this.value.length;
 
     this.correct = correct;
     this.details.length = correct;
     this.functionUsed.push({
       isLengthen: {
         length,
-        _value: this.value,
       },
     });
     return this;
@@ -147,7 +143,6 @@ export class Verifier {
    * - Also can be chained behind or before any other chaineble verification methods
    * - to update length just add isLengthen function behind this function. or custom regex
    * @param {object} customRegexObj `optional` {[errName]:regex,...}
-   * @param {string} value `optional` string to verify
    *  @example
    * ('username') => true
    * ('$wrongUsername') => false
@@ -156,14 +151,13 @@ export class Verifier {
    * ('username',{ length:/.{4,}/,start:/^[a-zA-Z]{1,}/} ) => true
    */
   //* Checks if value is a valid username and if not returns object with errors
-  isUsername(customRegexObj?: object, _value: string = this.value) {
-    this.value = _value;
+  isUsername(customRegexObj?: object) {
     let errors: errorsObj = {
       start: false,
       syntax: false,
     };
     if (customRegexObj) {
-      errors = checkCustomRegex(customRegexObj, _value);
+      errors = checkCustomRegex(customRegexObj, this.value);
       this.correct = Object.values(errors).every((v) => v);
       this.details = {
         ...this.details,
@@ -171,14 +165,13 @@ export class Verifier {
       };
       this.functionUsed.push({
         isUsername: {
-          _value: this.value,
           customRegexObj,
         },
       });
       return this;
     }
-    if (/^[a-zA-Z]{1,}/.test(_value)) errors.start = true;
-    if (!/[`!@#$%^&*()+\=[\]{};':'\\|,<>/?~]/.test(_value))
+    if (/^[a-zA-Z]{1,}/.test(this.value)) errors.start = true;
+    if (!/[`!@#$%^&*()+\=[\]{};':'\\|,<>/?~]/.test(this.value))
       errors.syntax = true;
     this.correct = Object.values(errors).every((v) => v);
     this.details = {
@@ -186,9 +179,7 @@ export class Verifier {
       ...errors,
     };
     this.functionUsed.push({
-      isUsername: {
-        _value: this.value,
-      },
+      isUsername: {},
     });
     return this;
   }
@@ -205,15 +196,13 @@ export class Verifier {
    * - Also can be chained behind or before any other chaineble verification methods
    * - to update length just add isLengthen function behind this function. or custom regex
    * @param customRegexObj `optional` {[errName]:regex,...}
-   * @param value `optional` string to verify
    *  @example
    *  ('hello') => false
    *  ('secreT@123') => true
    *  ('secreT',{length:/\w{1,}/}) => true
    */
   //* Checks if value is a valid password and returns errors object
-  isPassword(customRegexObj?: errorsObj, _value: string = this.value) {
-    this.value = _value;
+  isPassword(customRegexObj?: errorsObj) {
     let errors: errorsObj = {
       length: false,
       lowercase: false,
@@ -221,31 +210,28 @@ export class Verifier {
       symbol: false,
     };
     if (customRegexObj) {
-      errors = checkCustomRegex(customRegexObj, _value);
+      errors = checkCustomRegex(customRegexObj, this.value);
       this.correct = Object.values(errors).every((v) => v);
       this.details = errors;
       this.functionUsed.push({
         isPassword: {
-          _value: this.value,
           customRegexObj,
         },
       });
       return this;
     }
     //- Checks if password contains a lowercase character, if it contains then setting lowercase in errors false
-    errors.lowercase = /[a-z]/.test(_value);
+    errors.lowercase = /[a-z]/.test(this.value);
     //- Checks if password contains a uppercase character, if it contains then setting uppercase in errors false
-    errors.uppercase = /[A-Z]/.test(_value);
+    errors.uppercase = /[A-Z]/.test(this.value);
     //- Checks if password contains a symbol or a number, if it contains then setting symbol in errors false
-    errors.symbol = /[@#$%^&*!_+\-|\\/0-9]/.test(_value);
+    errors.symbol = /[@#$%^&*!_+\-|\\/0-9]/.test(this.value);
     //- Checks if length of password is 8 or greater, if it is then setting length in errors false
-    errors.length = this.isLengthen("gt8", _value).correct;
+    errors.length = this.isLengthen("gt8").correct;
     this.correct = Object.values(errors).every((v) => v);
     this.details = errors;
     this.functionUsed.push({
-      isPassword: {
-        _value: this.value,
-      },
+      isPassword: {},
     });
     return this;
   }
@@ -259,7 +245,7 @@ export class Verifier {
   }
   /**
    *  Calculates Age
-   * @param date DOB(format : YY-MM-DD)
+   * format : YY-MM-DD
    * @returns {number} age
    * - Not a chainable Property
    * @example
@@ -267,8 +253,11 @@ export class Verifier {
    * ('2000-02-22') => 21
    */
   //**  Date Format : YY-MM -DD
-  ageCalc(date: string = this.value): number {
-    this.value = date;
+  ageCalc(): number {
+    const date = this.value;
+    if (!/\d{4}-\d{1,2}-\d{1,2}/.test(date)) {
+      throw Error("Verifier.ageCalc:Invalid Date");
+    }
     const dob = new Date(date);
     //* Get Month diff from current time
     const monthDiff = Date.now() - dob.getTime();

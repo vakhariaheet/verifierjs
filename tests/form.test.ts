@@ -38,4 +38,7 @@ test("isLengthen", () => {
 test("ageCalc", () => {
   expect(new Verifier("2005-02-22").ageCalc()).toBe(16);
   expect(new Verifier("2000-02-22").ageCalc()).toBe(21);
+  expect(() => {
+    new Verifier("Wrong Date").ageCalc();
+  }).toThrow(new Error("Verifier.ageCalc:Invalid Date"));
 }, 500);

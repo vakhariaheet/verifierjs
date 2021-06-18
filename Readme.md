@@ -6,6 +6,7 @@ A tiny js library for Form validation.
 [![Codecov Coverage](https://badgen.net/codecov/c/github/vakhariaheet/verifierjs)](https://codecov.io/gh/vakhariaheet/verifierjs/)
 [![install size](https://packagephobia.com/badge?p=verifierjs)](https://packagephobia.com/result?p=verifierjs)
 [![License](https://img.shields.io/npm/l/verifierjs)](https://cdn.jsdelivr.net/npm/verifierjs@0.4.3/LICENSE)
+[![Minified Size](https://badgen.net/bundlephobia/min/verifierjs)](https://bundlephobia.com/package/verifierjs)
 
 - Chaineble Methods
   1. isUsername: Validates Username

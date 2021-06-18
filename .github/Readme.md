@@ -6,6 +6,7 @@ A tiny js library for Form validation.
 [![Codecov Coverage](https://badgen.net/codecov/c/github/vakhariaheet/verifierjs)](https://codecov.io/gh/vakhariaheet/verifierjs/)
 [![install size](https://packagephobia.com/badge?p=verifierjs)](https://packagephobia.com/result?p=verifierjs)
 [![License](https://img.shields.io/npm/l/verifierjs)](https://cdn.jsdelivr.net/npm/verifierjs@0.4.3/LICENSE)
+[![Min Size](https://badgen.net/bundlephobia/min/verifierjs)](https://bundlephobia.com/package/verifierjs)
 
 ## Installation
 
@@ -65,7 +66,7 @@ new Verifier('greaterthan').isLengthen('gt10').correct // returns true
 new Verifier('lowerthan').isLengthen('lt10').correct // returns true
 // ageCalc
 new Verifier('2005-02-22').ageCalc() //  16
-new Verifier().ageCalc('2000-02-22') //  21
+new Verifier('WrongFormat').ageCalc() //  Error Verifier.ageCalc:Invalid Date
 
 // array - Can be use on any chaineble method
 new Verifier('hello').isLengthen(5).array() //  returns [[length],[true]]
