@@ -19,7 +19,7 @@ yarn add verifierjs
 ## Import
 
 ```javascript
-import { Verifier } from "verifierjs";
+import { Verifier } from "verifierjs/index";
 ```
 
 ```JavaScript
