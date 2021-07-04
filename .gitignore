@@ -118,6 +118,6 @@ yarn.lock
 .DS_Store
 /coverage
 /dist
-index.js
-index.d.ts
-index.min.js
+./index.js
+./index.d.ts
+./index.min.js
