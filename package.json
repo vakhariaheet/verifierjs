@@ -2,12 +2,14 @@
   "name": "verifierjs",
   "version": "0.4.8",
   "description": "functions for validation",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "prepublish": "npm run build",
-  "browser": "dist/index.min.js",
+  "browser": "index.min.js",
   "files": [
-    "dist/**/*"
+    "index.js",
+    "index.d.ts",
+    "index.min.js"
   ],
   "scripts": {
     "test": "jest --config jest.config.ts",

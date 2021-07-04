@@ -49,7 +49,6 @@ const checkCustomRegex = (customRegexObj: any, value: string): errorsObj => {
  * }
  *
  * ```
- *
  */
 export class Verifier {
   /** The String on which verification will be applied */
@@ -235,6 +234,9 @@ export class Verifier {
     });
     return this;
   }
+  includes(str:string){
+    
+  }
   /**
    * @returns Array Form of `details` obj
    * - [ 0 ] : Properties Array
@@ -267,4 +269,5 @@ export class Verifier {
     const age = Math.abs(ageDiff.getUTCFullYear() - 1970);
     return age;
   }
+
 }
