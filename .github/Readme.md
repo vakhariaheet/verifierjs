@@ -19,12 +19,12 @@ yarn add verifierjs
 ## Import
 
 ```javascript
-import { Verifier } from "verifierjs/index";
+import { Verifier, anyone } from "verifierjs/index";
 ```
 
 ```JavaScript
 // CommonJS
-const { Verifier } = require('verifierjs');
+const { Verifier,anyone } = require('verifierjs');
 ```
 
 ```html
@@ -32,7 +32,7 @@ const { Verifier } = require('verifierjs');
 <script src="https://unpkg.com/browse/verifierjs/dist/index.min.js">
   <script>
   <script>
-    const { Verifier } = verifierjs;
+    const { Verifier,anyone } = verifierjs;
 </script>
 ```
 
