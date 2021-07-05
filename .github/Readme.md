@@ -62,9 +62,37 @@ new Verifier('example@example.com.in').isEmail().correct// returns true
 new Verifier('exact').isLengthen(5).correct // returns true
 new Verifier('greaterthan').isLengthen('gt10').correct // returns true
 new Verifier('lowerthan').isLengthen('lt10').correct // returns true
+
+//excludes
+new Verifier("hello").excludes("bye").correct //returns true
+new Verifier("hello").excludes(anyone("bye")).correct //returns false
+new Verifier("hey!hello").excludes("hello").details.excludes //returns false
+
+//includes
+new Verifier("hello").includes("bye").correct //returns false
+new Verifier("hello").includes(anyone("bye")).correct //returns true
+new Verifier("hey!hello").includes("hello").details.includes //returns true
+
+// consistOf
+new Verifier("helloG").consistOf({
+     uppercaseAlpha:true,
+     lowercaseAlpha:true
+     }).correct //returns true
+new Verifier("hello_G").consistOf({
+     uppercaseAlpha:true,
+     lowercaseAlpha:true,
+     custom:"_-"
+     }).correct //returns true
+new Verifier("hello_G").consistOf({
+     uppercaseAlpha:true,
+     lowercaseAlpha:true,
+     }).correct //returns false
+
 // ageCalc
 new Verifier('2005-02-22').ageCalc() //  16
 new Verifier('WrongFormat').ageCalc() //  Error Verifier.ageCalc:Invalid Date
+
+
 
 // array - Can be use on any chaineble method
 new Verifier('hello').isLengthen(5).array() //  returns [[length],[true]]
@@ -97,12 +125,30 @@ Age
 
 - DOB Format : YY-MM-DD
 
-- Chaineble Functions
-  1. isUsername
-  2. isPassword
-  3. isEmail
-  4. isLengthen
-- Non Chaineble Methods
-  1. array : returns array in which first element is array of properties(validation) names
-     and second element is array of properties(validation) values
-  2. ageCalc : Calculates Age
+#### Chaineble Functions
+
+1. isUsername
+2. isPassword
+3. isEmail
+4. isLengthen
+5. consistOf
+6. includes
+7. excludes
+
+#### Non Chaineble Methods
+
+1. array : returns array in which first element is array of properties(validation) names
+   and second element is array of properties(validation) values
+2. ageCalc : Calculates Age
+
+#### Helper Function
+
+1. anyone:
+
+```JavaScript
+ new Verifier("heldajsjfsa").includes(anyone("hello")).correct // return true
+```
+
+- What it basically does is that it tells the includes function that if string(which is to verify) contains "h" or "e" or "l" or "o" if anyone of them does then just check if remaining functions in the chain are passed if they had then just set correct to true
+
+- Same goes for excludes func check if "h" or "e" or "l" or "o" is present in the string if anyone of them does then just set correct to false
