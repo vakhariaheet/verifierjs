@@ -165,7 +165,7 @@ export class Verifier {
   /**  Checkes Username
    * - Default Username syntax:
    *    1. Username should only start with a-z,A-Z
-   *    2. Username should only contain letters, numbers, _s , -s ,.saturation
+   *    2. Username should only contain letters, numbers, _s , -saturation ,.saturation
    * - Addes `length`&`start` properties in `details` obj
    * - Also affects `correct`
    * - Also can be chained behind or before any other chaineble verification methods
@@ -371,56 +371,43 @@ export class Verifier {
    *  }).correct => false
    */
   consistOf(strConsistOf: {
-    lowercaseAlpha?:
-      | boolean
-      | number
-      | string
-      | {
-          value: string;
-          lenght: string | number;
-        };
-    uppercaseAlpha?:
-      | boolean
-      | number
-      | {
-          default: string;
-          lenght: string | number;
-        };
-    numbers?:
-      | boolean
-      | number
-      | {
-          default: string;
-          lenght: string | number;
-        };
-    whitespace?:
-      | boolean
-      | number
-      | {
-          default: string;
-          lenght: string | number;
-        };
-    symbols?:
-      | boolean
-      | number
-      | {
-          default: string;
-          lenght: string | number;
-        };
-    custom?:
-      | string
-      | {
-          default: string;
-          lenght: string | number;
-        };
+    lowercaseAlpha?: boolean;
+    uppercaseAlpha?: boolean;
+    numbers?: boolean;
+    whitespace?: boolean;
+    symbols?: boolean;
+    custom?: string;
   }) {
-    let errors = {};
-    Object.keys(strConsistOf).forEach((errName: string) => {
-      if (!strConsistOf[errName]) return;
-    });
+    let correct = false;
+
+    const valid = {
+      lowercaseAlpha: false,
+      uppercaseAlpha: false,
+      numbers: false,
+      whitespace: false,
+      symbols: false,
+      custom: "",
+      ...strConsistOf,
+    };
+    const validates: {
+      [name: string]: string;
+    } = {};
+    if (valid.lowercaseAlpha) validates.lowercaseAlpha = "a-z";
+    if (valid.uppercaseAlpha) validates.uppercase = "A-Z";
+    if (valid.numbers) validates.numbers = "0-9";
+    if (valid.whitespace) validates.whitespace = " \\t";
+    if (valid.symbols)
+      validates.symbols = "!@#$%^&*()_+-=~`';:.,<>/?[\\]\"\\\\|{}";
+    if (valid.custom) validates.custom = valid.custom;
+
+    correct = new RegExp(`^[${Object.values(validates).join("")}]{1,}$`).test(
+      this.value
+    );
+
+    this.correct = this.#verifyCorrect(correct);
+    this.details.consistOf = correct;
     return this;
   }
-
   /**
    * @returns Array Form of `details` obj
    * - [ 0 ] : Properties Array
