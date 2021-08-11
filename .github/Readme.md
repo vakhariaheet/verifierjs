@@ -152,3 +152,9 @@ Age
 - What it basically does is that it tells the includes function that if string(which is to verify) contains "h" or "e" or "l" or "o" if anyone of them does then just check if remaining functions in the chain are passed if they had then just set correct to true
 
 - Same goes for excludes func check if "h" or "e" or "l" or "o" is present in the string if anyone of them does then just set correct to false
+
+## Bugs and Issues
+
+If you encounter any bugs or issues, feel free to [open an issue at
+github](https://github.com/vakhariaheet/verifierjs/issues) or send me an email to
+<heetkv@gmail.com>. I also always like to hear from you, if you’re using my code.
