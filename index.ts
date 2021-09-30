@@ -14,10 +14,10 @@ const lengthRegex = (lengthRequired: number | string) => {
   if (typeof lengthRequired === "string") {
     lengthRequired.split(" ").map((len) => {
       if (len.includes("gt")) {
-        lowerlimit = (len.match(/[0-9]{1,}/) as string[])[0];
+        lowerlimit = (len.match(/[0-9]+/) as string[])[0];
       }
       if (len.includes("lt")) {
-        upperlimit = (len.match(/[0-9]{1,}/) as string[])[0];
+        upperlimit = (len.match(/[0-9]+/) as string[])[0];
       }
     });
   }
@@ -27,6 +27,7 @@ const lengthRegex = (lengthRequired: number | string) => {
 /**
  *
  * @param  {object} customRegexObj : custom regex object {[errName] :regex,...}
+ * @param {string} value : String to verify
  * @returns {object} {[errName]:regex test result};
  */
 const checkCustomRegex = (customRegexObj: any, value: string): errorsObj => {
@@ -38,11 +39,11 @@ const checkCustomRegex = (customRegexObj: any, value: string): errorsObj => {
   return errors;
 };
 /**
- * It basically tells the functions(which supportes `anyone`)
+ * It basically tells the functions(which supports `anyone`)
  * if anyone of the character present in `vstr` is there then verify it
  *
  * - Can be used on `includes`,`excludes`
- * @param vstr Verication string
+ * @param vstr Verification string
  * @example
  * new Verifier("heldajsjfsa").includes(anyone("hello")).correct // return true
  *
@@ -82,7 +83,7 @@ export class Verifier {
     [property: string]: boolean;
   };
   /** All the method used on the chain */
-  #functionUsed: {
+  readonly #functionUsed: {
     [Function: string]: { [param: string]: string | Object };
   }[];
   constructor(_value: string) {
@@ -101,20 +102,16 @@ export class Verifier {
   /**
    * Check if Email is valid.
    *
-   * - Addes `email` property in `details` obj
+   * - Adds `email` property in `details` obj
    * - Also affects `correct`
-   * - Also can be chained behind or before any other chaineble verification methods
+   * - Also can be chained behind or before any other chainable verification methods
    * @example
    * new Verifier('example@domain.co.org').isEmail().correct => true
    * new Verifier('wrongEmail@.co').isEmail().details.email => false
    */
   isEmail() {
-    let correct = true;
-    if (/\w{1,}@\w{1,}\.(\w{1,})+/.test(this.value)) {
-      correct = true;
-    } else {
-      correct = false;
-    }
+    let correct;
+    correct = /\w+@\w+\.(\w+)+/.test(this.value);
     this.correct = this.#verifyCorrect(correct);
     this.details.email = correct;
     this.#functionUsed.push({
@@ -125,9 +122,9 @@ export class Verifier {
   /**
    *
    * @param {number} length : length string
-   * - Addes `length` property in `details` obj
+   * - Adds `length` property in `details` obj
    * - Also affects `correct`
-   * - Also can be chained behind or before any other chaineble verification methods
+   * - Also can be chained behind or before any other chainable verification methods
    * @example
    * new Verifier('lowerthan 15').isLengthen("lt15").correct =>  true
    * new Verifier('greaterthan10').isLengthen("gt10").correct => true
@@ -138,8 +135,9 @@ export class Verifier {
    */
   //* Checks Length of value is greater or equal to given required length
   isLengthen(length: number | string) {
+
     const { upperlimit, lowerlimit } = lengthRegex(length);
-    let correct = true;
+    let correct;
     if (typeof length === "number") {
       correct = length === this.value.length;
       this.details.length = correct;
@@ -162,13 +160,13 @@ export class Verifier {
     return this;
   }
 
-  /**  Checkes Username
+  /**  Checks Username
    * - Default Username syntax:
    *    1. Username should only start with a-z,A-Z
    *    2. Username should only contain letters, numbers, _s , -saturation ,.saturation
-   * - Addes `length`&`start` properties in `details` obj
+   * - Adds `length`&`start` properties in `details` obj
    * - Also affects `correct`
-   * - Also can be chained behind or before any other chaineble verification methods
+   * - Also can be chained behind or before any other chainable verification methods
    * - to update length just add isLengthen function behind this function. or custom regex
    * @param {object} customRegexObj `optional` {[errName]:regex,...}
    *  @example
@@ -198,8 +196,8 @@ export class Verifier {
       });
       return this;
     }
-    if (/^[a-zA-Z]{1,}/.test(this.value)) errors.start = true;
-    if (!/[`!@#$%^&*()+\=[\]{};':'\\|,<>/?~]/.test(this.value))
+    if (/^[a-zA-Z]+/.test(this.value)) errors.start = true;
+    if (!/[`!@#$%^&*()+=[\]{};:'\\|,<>/?~]/.test(this.value))
       errors.syntax = true;
     this.correct = this.#verifyCorrect(errors);
     this.details = {
@@ -219,9 +217,9 @@ export class Verifier {
    *    3. must contain at least one symbol or number
    *    4. length must be at least 8 characters long
    * - Default Password syntax can be changed by passing customRegexObj as param
-   * - Addes `length`,`lowercase`,`uppercase`,`symbol` properties in `details` obj
+   * - Adds `length`,`lowercase`,`uppercase`,`symbol` properties in `details` obj
    * - Also affects `correct`
-   * - Also can be chained behind or before any other chaineble verification methods
+   * - Also can be chained behind or before any other chainable verification methods
    * - to update length just add isLengthen function behind this function. or custom regex
    * @param customRegexObj `optional` {[errName]:regex,...}
    *  @example
@@ -265,9 +263,9 @@ export class Verifier {
   }
   /**
    * Checks Whether a specific string(or set of characters if `anyone` function in passed) is present in `this.value`
-   * - Addes `includes` property in `details` obj
+   * - Adds `includes` property in `details` obj
    * - Also affects `correct`
-   * - Also can be chained behind or before any other chaineble verification methods
+   * - Also can be chained behind or before any other chainable verification methods
    * @param vstr Verification string which should be present in `this.value` or `anyone` function can also be passed as param
    * @example
    * new Verifier("hello").includes("bye").correct => false
@@ -277,64 +275,42 @@ export class Verifier {
   includes(vstr: string | { regex: string }) {
     let correct = false;
     if (!vstr) throw Error("Verifier.includes vstr not specified");
-
-    if (typeof vstr === "string") {
       correct = new RegExp(`${vstr}{1,}`).test(this.value);
       this.#functionUsed.push({
         includes: { requiredStr: vstr, length: "gt1" },
       });
-      correct;
-    } else {
-      correct = new RegExp(`${vstr}{1,}`).test(this.value);
-      this.#functionUsed.push({
-        includes: { requiredStr: vstr, length: "gt1" },
-      });
-      this.#functionUsed.push({
-        includes: { requiredStr: vstr.regex, length: "gt1" },
-      });
-    }
     this.details.includes = correct;
     this.correct = this.#verifyCorrect(correct);
     return this;
   }
   /**
    * Checks Whether a specific string(or set of characters if `anyone` function in passed) is not present in `this.value`
-   * - Addes `excludes` property in `details` obj
+   * - Adds `excludes` property in `details` obj
    * - Also affects `correct`
-   * - Also can be chained behind or before any other chaineble verification methods
+   * - Also can be chained behind or before any other chainable verification methods
    * @param vstr Verification string which should not be present in `this.value` or `anyone` function can also be passed as param
    *  @example
    * new Verifier("hello").excludes("bye").correct => true
    * new Verifier("hello").excludes(anyone("bye")).correct => false
    * new Verifier("hey!hello").excludes("hello").details.excludes => false
    */
-  excludes(vstr: string | { regex: string }) {
+  excludes(vstr: string) {
     if (!vstr) throw Error("Verifier.excludes vstr not specified");
-    let correct = false;
-    if (typeof vstr === "string") {
+    let correct: boolean;
+
       correct = !new RegExp(`${vstr}{1,}`).test(this.value);
       this.#functionUsed.push({
         includes: { requiredStr: vstr, length: "gt1" },
       });
-      correct;
-    } else {
-      correct = !new RegExp(`${vstr}{1,}`).test(this.value);
-      this.#functionUsed.push({
-        includes: { requiredStr: vstr, length: "gt1" },
-      });
-      this.#functionUsed.push({
-        includes: { requiredStr: vstr.regex, length: "gt1" },
-      });
-    }
     this.details.includes = correct;
     this.correct = this.#verifyCorrect(correct);
     return this;
   }
   /**
    * - For all properties default is false
-   * - Addes `consistOf` property in `details` obj
+   * - Adds `consistOf` property in `details` obj
    * - Also affects `correct`
-   * - Also can be chained behind or before any other chaineble verification methods
+   * - Also can be chained behind or before any other chainable verification methods
    * @param strConsistOf object
    * - Default Symbols ``!@#$%^&*()_+-=~`';:.,<>/?"\|[]{}``
    * 
@@ -349,7 +325,7 @@ export class Verifier {
    *
    *    symbols?: boolean;//if true,then string may contain symbols , if false string should not contain symbols
    *
-   *    custom?: string; //if true,then string(i.e `this.value`) may contain characters of string(which specied as value in custom property ) , if false string should not contain characters of string(which specied as value in custom property )
+   *    custom?: string; //if true,then string(i.e `this.value`) may contain characters of string(which specified as value in custom property ) , if false string should not contain characters of string(which specified as value in custom property )
    * }
    * 
 
@@ -378,7 +354,7 @@ export class Verifier {
     symbols?: boolean;
     custom?: string;
   }) {
-    let correct = false;
+    let correct: boolean;
 
     const valid = {
       lowercaseAlpha: false,
@@ -400,12 +376,17 @@ export class Verifier {
       validates.symbols = "!@#$%^&*()_+-=~`';:.,<>/?[\\]\"\\\\|{}";
     if (valid.custom) validates.custom = valid.custom;
 
-    correct = new RegExp(`^[${Object.values(validates).join("")}]{1,}$`).test(
+    correct = new RegExp(`^[${Object.values(validates).join("")}]+$`).test(
       this.value
     );
 
     this.correct = this.#verifyCorrect(correct);
     this.details.consistOf = correct;
+    this.#functionUsed.push({
+      consistOf:{
+        strConsistOf,
+      }
+    })
     return this;
   }
   /**
@@ -415,6 +396,22 @@ export class Verifier {
    */
   array() {
     return [Object.keys(this.details), Object.values(this.details)];
+  }
+  /**
+   * @return Function which contains all the function on chain
+   *
+   *
+   */
+  function() {
+
+    return (value:string) => {
+      this.value = value;
+      for(let func of this.#functionUsed ) {
+         const functionName = Object.keys(func)[0];
+          eval(`this.${functionName}`)(...Object.values(func[functionName]));
+      }
+      return this.correct;
+    }
   }
   /**
    *  Calculates Age
@@ -437,7 +434,8 @@ export class Verifier {
     //* Converting it into Date format
     const ageDiff = new Date(monthDiff);
     //* Calculating age
-    const age = Math.abs(ageDiff.getUTCFullYear() - 1970);
-    return age;
+    return Math.abs(ageDiff.getUTCFullYear() - 1970);
   }
 }
+
+

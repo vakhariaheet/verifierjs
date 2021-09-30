@@ -29,16 +29,15 @@ const { Verifier,anyone } = require('verifierjs');
 
 ```html
 <!-- Vanilla JS -->
-<script src="https://unpkg.com/browse/verifierjs/dist/index.min.js">
-  <script>
-  <script>
+    <script src="https://unpkg.com/browse/verifierjs/dist/index.min.js"><script>
+    <script>
     const { Verifier,anyone } = verifierjs;
-</script>
+    </script>
 ```
 
 ##### Note
 
-Color conversion functions are transfered to [color-converter](https://www.npmjs.com/package/color-convertor)
+Color conversion functions are transferred to [color-converter](https://www.npmjs.com/package/color-convertor)
 
 ### Usage
 
@@ -125,7 +124,7 @@ Age
 
 - DOB Format : YY-MM-DD
 
-#### Chaineble Functions
+#### Chainable Functions
 
 1. isUsername
 2. isPassword
@@ -135,7 +134,7 @@ Age
 6. includes
 7. excludes
 
-#### Non Chaineble Methods
+#### Non Chainable Methods
 
 1. array : returns array in which first element is array of properties(validation) names
    and second element is array of properties(validation) values
@@ -156,5 +155,5 @@ Age
 ## Bugs and Issues
 
 If you encounter any bugs or issues, feel free to [open an issue at
-github](https://github.com/vakhariaheet/verifierjs/issues) or send me an email to
+github](https://github.com/vakhariaheet/verifierjs/issues) or email me to
 <heetkv@gmail.com>. I also always like to hear from you, if you’re using my code.
