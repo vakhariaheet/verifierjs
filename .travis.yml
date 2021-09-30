@@ -1,5 +1,16 @@
+sudo: false
 language: node_js
-scripts:
-  - npm install codecov -g
+cache:
+  directories:
+    - node_modules
+branches:
+  only:
+    - master
+notifications:
+  email: false
+before_script:
+  - npm prune
+script:
+  - npm run test
 after_success:
-  - codecov
+  - npm run semantic-release

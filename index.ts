@@ -114,9 +114,7 @@ export class Verifier {
     correct = /\w+@\w+\.(\w+)+/.test(this.value);
     this.correct = this.#verifyCorrect(correct);
     this.details.email = correct;
-    this.#functionUsed.push({
-      isEmail: {},
-    });
+
     return this;
   }
   /**
@@ -152,11 +150,7 @@ export class Verifier {
 
     this.correct = this.#verifyCorrect(correct);
     this.details.length = correct;
-    this.#functionUsed.push({
-      isLengthen: {
-        length,
-      },
-    });
+
     return this;
   }
 
@@ -204,9 +198,7 @@ export class Verifier {
       ...this.details,
       ...errors,
     };
-    this.#functionUsed.push({
-      isUsername: {},
-    });
+
     return this;
   }
   /**
@@ -239,11 +231,7 @@ export class Verifier {
       errors = checkCustomRegex(customRegexObj, this.value);
       this.correct = this.#verifyCorrect(errors);
       this.details = errors;
-      this.#functionUsed.push({
-        isPassword: {
-          customRegexObj,
-        },
-      });
+
       return this;
     }
     //- Checks if password contains a lowercase character, if it contains then setting lowercase in errors false
@@ -256,9 +244,7 @@ export class Verifier {
     errors.length = this.isLengthen("gt8").correct;
     this.correct = this.#verifyCorrect(errors);
     this.details = errors;
-    this.#functionUsed.push({
-      isPassword: {},
-    });
+
     return this;
   }
   /**
@@ -276,9 +262,7 @@ export class Verifier {
     let correct = false;
     if (!vstr) throw Error("Verifier.includes vstr not specified");
       correct = new RegExp(`${vstr}{1,}`).test(this.value);
-      this.#functionUsed.push({
-        includes: { requiredStr: vstr, length: "gt1" },
-      });
+
     this.details.includes = correct;
     this.correct = this.#verifyCorrect(correct);
     return this;
@@ -299,9 +283,7 @@ export class Verifier {
     let correct: boolean;
 
       correct = !new RegExp(`${vstr}{1,}`).test(this.value);
-      this.#functionUsed.push({
-        includes: { requiredStr: vstr, length: "gt1" },
-      });
+
     this.details.includes = correct;
     this.correct = this.#verifyCorrect(correct);
     return this;
@@ -382,11 +364,7 @@ export class Verifier {
 
     this.correct = this.#verifyCorrect(correct);
     this.details.consistOf = correct;
-    this.#functionUsed.push({
-      consistOf:{
-        strConsistOf,
-      }
-    })
+
     return this;
   }
   /**
@@ -397,22 +375,7 @@ export class Verifier {
   array() {
     return [Object.keys(this.details), Object.values(this.details)];
   }
-  /**
-   * @return Function which contains all the function on chain
-   *
-   *
-   */
-  function() {
 
-    return (value:string) => {
-      this.value = value;
-      for(let func of this.#functionUsed ) {
-         const functionName = Object.keys(func)[0];
-          eval(`this.${functionName}`)(...Object.values(func[functionName]));
-      }
-      return this.correct;
-    }
-  }
   /**
    *  Calculates Age
    * format : YY-MM-DD

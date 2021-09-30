@@ -5,5 +5,6 @@ import type { Config } from "@jest/types";
 const config: Config.InitialOptions = {
   verbose: true,
   collectCoverage: true,
+  coverageReporters: ["json-summary"]
 };
 export default config;
