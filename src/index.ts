@@ -92,14 +92,6 @@ export class Verifier {
 
     }
 
-    #verifyCorrect(correct: boolean | errorsObj): boolean {
-        if (typeof correct === "boolean") {
-            return Object.values({...this.details, correct}).every((v) => v);
-        } else {
-            return Object.values({...this.details, ...correct}).every((v) => v);
-        }
-    }
-
     /**
      * Check if Email is valid.
      *
@@ -118,7 +110,6 @@ export class Verifier {
 
         return this;
     }
-
 
     /**
      *
@@ -402,6 +393,14 @@ export class Verifier {
         const ageDiff = new Date(monthDiff);
         //* Calculating age
         return Math.abs(ageDiff.getUTCFullYear() - 1970);
+    }
+
+    #verifyCorrect(correct: boolean | errorsObj): boolean {
+        if (typeof correct === "boolean") {
+            return Object.values({...this.details, correct}).every((v) => v);
+        } else {
+            return Object.values({...this.details, ...correct}).every((v) => v);
+        }
     }
 }
 

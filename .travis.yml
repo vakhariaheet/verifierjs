@@ -1,9 +1,7 @@
 sudo: false
 language: node_js
 node_js:
-  - "12"
   - "10"
-  - "latest"
 cache:
   directories:
     - node_modules
@@ -16,7 +14,7 @@ before_script:
   - npm prune
   - npm run build
 script:
-  - npm run test:single
+  - npm run test
 after_success:
   - npm run report-coverage
   - npm run semantic-release

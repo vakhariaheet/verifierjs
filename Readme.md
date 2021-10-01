@@ -5,8 +5,7 @@ A tiny js library for Form validation.
 ![Node Version](https://badgen.net/npm/node/next)
 [![License](https://img.shields.io/npm/l/verifierjs)](https://cdn.jsdelivr.net/npm/verifierjs@0.4.3/LICENSE)
 [![Minified Size](https://badgen.net/bundlephobia/min/verifierjs)](https://bundlephobia.com/package/verifierjs)
-![Statements](https://img.shields.io/badge/statements-100%25-brightgreen.svg)
-![Lines](https://img.shields.io/badge/lines-100%25-brightgreen.svg)
+[![codecov](https://codecov.io/gh/vakhariaheet/verifierjs/branch/master/graph/badge.svg?token=MBOtpOq4oG)](https://codecov.io/gh/vakhariaheet/verifierjs)
 - Chainable Methods
   1. isUsername: Validates Username
   2. isPassword: Validates Password

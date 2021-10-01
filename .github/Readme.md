@@ -5,8 +5,7 @@ A tiny js library for Form validation.
 ![Node Version](https://badgen.net/npm/node/next)
 [![License](https://img.shields.io/npm/l/verifierjs)](https://cdn.jsdelivr.net/npm/verifierjs@0.4.3/LICENSE)
 [![Min Size](https://badgen.net/bundlephobia/min/verifierjs)](https://bundlephobia.com/package/verifierjs)
-![Statements](https://img.shields.io/badge/statements-100%25-brightgreen.svg)
-![Lines](https://img.shields.io/badge/lines-100%25-brightgreen.svg)
+[![codecov](https://codecov.io/gh/vakhariaheet/verifierjs/branch/master/graph/badge.svg?token=MBOtpOq4oG)](https://codecov.io/gh/vakhariaheet/verifierjs)
 
 ## Installation
 
@@ -21,20 +20,20 @@ yarn add verifierjs
 ## Import
 
 ```javascript
-import { Verifier, anyone } from "verifierjs/index";
+import {Verifier, anyone} from "verifierjs/index";
 ```
 
 ```JavaScript
 // CommonJS
-const { Verifier,anyone } = require('verifierjs');
+const {Verifier, anyone} = require('verifierjs');
 ```
 
 ```html
 <!-- Vanilla JS -->
-    <script src="https://unpkg.com/browse/verifierjs/dist/index.min.js"><script>
+<script src="https://unpkg.com/browse/verifierjs/dist/index.min.js"><script>
     <script>
-    const { Verifier,anyone } = verifierjs;
-    </script>
+        const {Verifier,anyone} = verifierjs;
+</script>
 ```
 
 ##### Note
@@ -48,13 +47,13 @@ Color conversion functions are transferred to [color-converter](https://www.npmj
 new Verifier('username').isUsername().correct// returns true
 new Verifier('$username').isUsername().correct// returns false
 new Verifier('username').isUsername(/\w{4,}/).correct// returns true
-new Verifier('username').isUsername({length:/\w{4,}/}).details// returns {lenght:true}
+new Verifier('username').isUsername({length: /\w{4,}/}).details// returns {lenght:true}
 
 // isPassword
 new Verifier('secret').isPassword().correct // returns false
 new Verifier('secreT@123').isPassword().correct // returns true
 new Verifier('secret').isPassword(/.{1,}/).correct // returns true
-new Verifier('secret').isPassword({length:/.{1,}/}).details // returns{lenght:true}
+new Verifier('secret').isPassword({length: /.{1,}/}).details // returns{lenght:true}
 // isEmail
 new Verifier('wrongEmail@.com').isEmail().correct // returns false
 new Verifier('example@example.com.in').isEmail().correct// returns true
@@ -76,23 +75,22 @@ new Verifier("hey!hello").includes("hello").details.includes //returns true
 
 // consistOf
 new Verifier("helloG").consistOf({
-     uppercaseAlpha:true,
-     lowercaseAlpha:true
-     }).correct //returns true
+    uppercaseAlpha: true,
+    lowercaseAlpha: true
+}).correct //returns true
 new Verifier("hello_G").consistOf({
-     uppercaseAlpha:true,
-     lowercaseAlpha:true,
-     custom:"_-"
-     }).correct //returns true
+    uppercaseAlpha: true,
+    lowercaseAlpha: true,
+    custom: "_-"
+}).correct //returns true
 new Verifier("hello_G").consistOf({
-     uppercaseAlpha:true,
-     lowercaseAlpha:true,
-     }).correct //returns false
+    uppercaseAlpha: true,
+    lowercaseAlpha: true,
+}).correct //returns false
 
 // ageCalc
 new Verifier('2005-02-22').ageCalc() //  16
 new Verifier('WrongFormat').ageCalc() //  Error Verifier.ageCalc:Invalid Date
-
 
 
 // array - Can be use on any chaineble method
@@ -138,8 +136,8 @@ Age
 
 #### Non Chainable Methods
 
-1. array : returns array in which first element is array of properties(validation) names
-   and second element is array of properties(validation) values
+1. array : returns array in which first element is array of properties(validation) names and second element is array of
+   properties(validation) values
 2. ageCalc : Calculates Age
 
 #### Helper Function
@@ -150,12 +148,15 @@ Age
  new Verifier("heldajsjfsa").includes(anyone("hello")).correct // return true
 ```
 
-- What it basically does is that it tells the includes function that if string(which is to verify) contains "h" or "e" or "l" or "o" if anyone of them does then just check if remaining functions in the chain are passed if they had then just set correct to true
+- What it basically does is that it tells the includes function that if string(which is to verify) contains "h" or "e"
+  or "l" or "o" if anyone of them does then just check if remaining functions in the chain are passed if they had then
+  just set correct to true
 
-- Same goes for excludes func check if "h" or "e" or "l" or "o" is present in the string if anyone of them does then just set correct to false
+- Same goes for excludes func check if "h" or "e" or "l" or "o" is present in the string if anyone of them does then
+  just set correct to false
 
 ## Bugs and Issues
 
-If you encounter any bugs or issues, feel free to [open an issue at
-github](https://github.com/vakhariaheet/verifierjs/issues) or email me to
+If you encounter any bugs or issues, feel free
+to [open an issue at github](https://github.com/vakhariaheet/verifierjs/issues) or email me to
 <heetkv@gmail.com>. I also always like to hear from you, if you’re using my code.

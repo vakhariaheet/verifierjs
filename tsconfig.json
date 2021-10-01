@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES6",
     "module": "CommonJS",
-
     "moduleResolution": "Node",
     "outDir": "./dist",
     "declaration": true,
     "strict": true
   },
-  "include": ["src/index.ts"],
-  "exclude": ["node-modules", "dist", "jest.config.ts"]
+  "include": [
+    "src/index.ts"
+  ],
+  "exclude": [
+    "node-modules",
+    "dist",
+    "jest.config.ts"
+  ]
 }
