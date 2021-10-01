@@ -25,6 +25,9 @@
       "path": "node_modules/cz-conventional-changelog"
     }
   },
+  "engines": {
+    "node": ">=12.0"
+  },
   "keywords": [
     "validate",
     "validation",
@@ -43,6 +46,7 @@
     "type": "git",
     "url": "https://github.com/vakhariaheet/verifier.git"
   },
+
   "bugs": {
     "url": "https://github.com/vakhariaheet/verifier/issues"
   },
