@@ -1,9 +1,9 @@
-const {Verifier} = require("../index");
-const {anyone} = require("../index")
+const {Verifier} = require("../src");
+const {anyone} = require("../src")
 test("isUsername", () => {
     expect(new Verifier("username").isUsername().correct).toBe(true);
     expect(new Verifier("$username").isUsername().correct).toBe(false);
-    expect(new Verifier("username").isUsername(/\w{1,}/).correct).toBe(true);
+    expect(new Verifier("username").isUsername(/\w+/).correct).toBe(true);
 }, 500);
 test("isPassword", () => {
     expect(new Verifier("secret").isPassword().correct).toBe(false);
@@ -52,7 +52,10 @@ test("consistOf", () => {
     expect(new Verifier("vakharia_heet").consistOf({
         custom: "-_",
         lowercaseAlpha: true,
-        uppercaseAlpha: true
+    }).correct).toBe(true)
+    expect(new Verifier("HELLO").consistOf({
+        uppercaseAlpha:true,
+
     }).correct).toBe(true)
 })
 test("ageCalc", () => {
@@ -62,6 +65,7 @@ test("ageCalc", () => {
         new Verifier("Wrong Date").ageCalc();
     }).toThrow(new Error("Verifier.ageCalc:Invalid Date"));
 });
+
 test("includes", () => {
     expect(new Verifier("Hello Buddy! ").includes("Hello").correct).toBe(true);
     expect(new Verifier("Hello Buddy! ").includes(anyone("naa")).correct).toBe(false);
@@ -78,4 +82,4 @@ test("excludes", () => {
     expect(() => {
         new Verifier("Errrrrrrr").excludes()
     }).toThrow(new Error("Verifier.excludes vstr not specified"))
-})
+});

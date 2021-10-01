@@ -14,7 +14,9 @@ notifications:
   email: false
 before_script:
   - npm prune
+  - npm build
 script:
-  - npm run test
+  - npm run test:single
 after_success:
+  - npm run report-coverage
   - npm run semantic-release

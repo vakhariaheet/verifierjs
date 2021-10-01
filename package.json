@@ -2,19 +2,18 @@
   "name": "verifierjs",
   "version": "0.0.0-development",
   "description": "functions for validation",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "prepublish": "npm run build",
-  "browser": "index.min.js",
+  "browser": "dist/index.min.js",
   "files": [
-    "index.js",
-    "index.d.ts",
-    "index.min.js"
+    "dist/**/*"
   ],
-
   "scripts": {
     "commit": "git-cz",
-    "test": "jest --config jest.config.ts --coverage",
+    "report-coverage": "cat ./coverage/lcov.info | codecov",
+    "test": "jest --config jest.config.ts --watch --coverage ",
+    "test:single": "jest --config jest.config.ts --coverage",
     "build": "tsc --build tsconfig.json && rollup -c",
     "dev": "tsc --build tsconfig.json --watch",
     "make-badges": "istanbul-badges-readme && istanbul-badges-readme --readmeDir=\"./.github\"\n",
@@ -23,6 +22,9 @@
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-commit": "yarn"
     }
   },
   "engines": {
@@ -46,7 +48,6 @@
     "type": "git",
     "url": "https://github.com/vakhariaheet/verifier.git"
   },
-
   "bugs": {
     "url": "https://github.com/vakhariaheet/verifier/issues"
   },
@@ -57,13 +58,16 @@
     "@rollup/plugin-typescript": "^8.2.1",
     "@types/jest": "^26.0.23",
     "codecov": "^3.8.2",
+    "codecov.io": "^0.1.6",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
+    "ghooks": "^2.0.4",
     "istanbul-badges-readme": "^1.4.0",
     "jest": "^26.6.3",
     "rollup": "^2.52.0",
     "rollup-plugin-terser": "^7.0.2",
     "semantic-release": "^18.0.0",
+    "ts-jest": "^26.4.2",
     "ts-node": "^10.0.0",
     "tslib": "^2.3.0",
     "typescript": "^4.2.4"

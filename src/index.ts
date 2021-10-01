@@ -84,16 +84,12 @@ export class Verifier {
     details: {
         [property: string]: boolean;
     };
-    /** All the method used on the chain */
-    readonly #functionUsed: {
-        [Function: string]: { [param: string]: string | Object };
-    }[];
 
     constructor(_value: string) {
         this.value = _value;
         this.correct = false;
         this.details = {};
-        this.#functionUsed = [];
+
     }
 
     #verifyCorrect(correct: boolean | errorsObj): boolean {
@@ -122,6 +118,7 @@ export class Verifier {
 
         return this;
     }
+
 
     /**
      *
@@ -189,11 +186,7 @@ export class Verifier {
                 ...this.details,
                 ...errors,
             };
-            this.#functionUsed.push({
-                isUsername: {
-                    customRegexObj,
-                },
-            });
+
             return this;
         }
         if (/^[a-zA-Z]+/.test(this.value)) errors.start = true;

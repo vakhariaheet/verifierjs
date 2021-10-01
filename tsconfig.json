@@ -2,11 +2,12 @@
   "compilerOptions": {
     "target": "ES2017",
     "module": "CommonJS",
+
     "moduleResolution": "Node",
-    "outDir": ".",
+    "outDir": "./dist",
     "declaration": true,
     "strict": true
   },
-  "include": ["*"],
+  "include": ["src/index.ts"],
   "exclude": ["node-modules", "dist", "jest.config.ts"]
 }
