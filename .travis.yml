@@ -1,9 +1,6 @@
 sudo: false
 language: node_js
-node_js:
-  - 10
 cache:
-  yarn: true
   directories:
     - node_modules
 branches:
@@ -12,8 +9,8 @@ branches:
 notifications:
   email: false
 before_script:
-  - yarn
+  - npm prune
 script:
-  - yarn test
+  - npm run test
 after_success:
-  - yarn semantic-release
+  - npm run semantic-release
