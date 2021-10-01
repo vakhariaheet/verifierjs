@@ -27,7 +27,7 @@
       "path": "node_modules/cz-conventional-changelog"
     },
     "ghooks": {
-      "pre-commit": "yarn"
+      "pre-commit": "npm run test"
     }
   },
   "engines": {
