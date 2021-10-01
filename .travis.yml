@@ -14,7 +14,7 @@ notifications:
   email: false
 before_script:
   - npm prune
-  - npm build
+  - npm run build
 script:
   - npm run test:single
 after_success:
