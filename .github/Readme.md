@@ -20,7 +20,7 @@ yarn add verifierjs
 ## Import
 
 ```javascript
-import {Verifier, anyone} from "verifierjs/index";
+import {Verifier, anyone} from "verifierjs";
 ```
 
 ```JavaScript
@@ -30,10 +30,10 @@ const {Verifier, anyone} = require('verifierjs');
 
 ```html
 <!-- Vanilla JS -->
-<script src="https://unpkg.com/browse/verifierjs/dist/index.min.js"><script>
+    <script src="https://unpkg.com/browse/verifierjs/dist/index.min.js"><script>
     <script>
-        const {Verifier,anyone} = verifierjs;
-</script>
+            const {Verifier,anyone} = verifierjs;
+    </script>
 ```
 
 ##### Note

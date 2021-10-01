@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "prepublish": "npm run build",
-  "browser": "dist/index.min.js",
+  "browser": "./dist/index.umd.min.js",
   "files": [
     "dist/**/*"
   ],
@@ -49,12 +49,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vakhariaheet/verifier.git"
+    "url": "https://github.com/vakhariaheet/verifierjs.git"
   },
   "bugs": {
-    "url": "https://github.com/vakhariaheet/verifier/issues"
+    "url": "https://github.com/vakhariaheet/verifierjs/issues"
   },
-  "homepage": "https://github.com/vakhariaheet/verifier#readme",
+  "homepage": "https://github.com/vakhariaheet/verifierjs#readme",
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "codecov": "^3.8.2",
