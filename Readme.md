@@ -158,9 +158,13 @@ Age
 
 - Same goes for excludes func check if "h" or "e" or "l" or "o" is present in the string if anyone of them does then
   just set correct to false
+
 ## Contributing
+
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Bugs and Issues
+
 If you encounter any bugs or issues, feel free
 to [open an issue at github](https://github.com/vakhariaheet/verifierjs/issues) or email me to
 <heetkv@gmail.com>. I also always like to hear from you, if you’re using my code.
