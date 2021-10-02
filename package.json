@@ -1,76 +1,78 @@
 {
-  "name": "verifierjs",
-  "version": "0.0.0-development",
-  "description": "functions for validation",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "prepublish": "npm run build",
-  "browser": "./dist/index.umd.min.js",
-  "files": [
-    "dist/**/*"
-  ],
-  "scripts": {
-    "commit": "git-cz",
-    "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "test": "jest --config jest.config.ts --coverage ",
-    "watch:test": "npm test -- --watch",
-    "watch:build": "tsc --build tsconfig.json --watch",
-    "prebuild": "rimraf dist",
-    "build:main": "tsc --build tsconfig.json",
-    "build:umd": "webpack --output-filename index.umd.js --mode=development",
-    "build:umdmin": "webpack --output-filename index.umd.min.js --mode=production",
-    "build": "npm-run-all --parallel build:*",
-    "semantic-release": "semantic-release"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    },
-    "ghooks": {
-      "pre-commit": "npm run test"
-    }
-  },
-  "engines": {
-    "node": ">=12.0"
-  },
-  "keywords": [
-    "validate",
-    "validation",
-    "verify",
-    "checker",
-    "realtimeValidation",
-    "verification",
-    "typescript",
-    "form",
-    "verifier",
-    "string"
-  ],
-  "author": "vakharia_heet",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vakhariaheet/verifierjs.git"
-  },
-  "bugs": {
-    "url": "https://github.com/vakhariaheet/verifierjs/issues"
-  },
-  "homepage": "https://github.com/vakhariaheet/verifierjs#readme",
-  "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "codecov": "^3.8.2",
-    "codecov.io": "^0.1.6",
-    "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "^3.3.0",
-    "ghooks": "^2.0.4",
-    "jest": "^26.6.3",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "semantic-release": "^18.0.0",
-    "ts-jest": "^26.4.2",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.2.4",
-    "webpack": "^5.55.1",
-    "webpack-cli": "^4.8.0"
-  },
-  "dependencies": {}
+	"name": "verifierjs",
+	"version": "0.0.0-development",
+	"description": "functions for validation",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"browser": "./dist/index.umd.min.js",
+	"files": [
+		"dist/**/*"
+	],
+	"scripts": {
+		"commit": "git-cz",
+		"report-coverage": "cat ./coverage/lcov.info | codecov",
+		"test": "jest --config jest.config.ts --coverage ",
+		"watch:test": "yarn test -- --watch",
+		"watch:build": "tsc --build tsconfig.json --watch",
+		"prebuild": "rimraf dist",
+		"format": "yarn prettier --write .",
+		"build:main": "tsc --build tsconfig.json",
+		"build:umd": "webpack --output-filename index.umd.js --mode=development",
+		"build:umdmin": "webpack --output-filename index.umd.min.js --mode=production",
+		"build": "npm-run-all --parallel build:*",
+		"semantic-release": "semantic-release"
+	},
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-conventional-changelog"
+		},
+		"ghooks": {
+			"pre-commit": "yarn format && yarn test "
+		}
+	},
+	"engines": {
+		"node": ">=10.0"
+	},
+	"keywords": [
+		"validate",
+		"validation",
+		"verify",
+		"checker",
+		"realtimeValidation",
+		"verification",
+		"typescript",
+		"form",
+		"verifier",
+		"string"
+	],
+	"author": "vakharia_heet",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/vakhariaheet/verifierjs.git"
+	},
+	"bugs": {
+		"url": "https://github.com/vakhariaheet/verifierjs/issues"
+	},
+	"homepage": "https://github.com/vakhariaheet/verifierjs#readme",
+	"devDependencies": {
+		"@types/jest": "^26.0.23",
+		"codecov": "^3.8.2",
+		"codecov.io": "^0.1.6",
+		"commitizen": "^4.2.4",
+		"cz-conventional-changelog": "^3.3.0",
+		"ghooks": "^2.0.4",
+		"jest": "^26.6.3",
+		"npm-run-all": "^4.1.5",
+		"prettier": "2.4.1",
+		"rimraf": "^3.0.2",
+		"semantic-release": "^18.0.0",
+		"ts-jest": "^26.4.2",
+		"ts-loader": "^9.2.6",
+		"typescript": "^4.2.4",
+		"webpack": "^5.55.1",
+		"webpack-cli": "^4.8.0",
+		"yarn": "^1.22.15"
+	},
+	"dependencies": {}
 }
