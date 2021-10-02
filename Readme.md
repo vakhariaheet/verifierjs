@@ -8,6 +8,7 @@ A tiny js library for Form validation.
 [![codecov](https://codecov.io/gh/vakhariaheet/verifierjs/branch/master/graph/badge.svg?token=MBOtpOq4oG)](https://codecov.io/gh/vakhariaheet/verifierjs)
 ![build](https://img.shields.io/travis/com/vakhariaheet/verifierjs)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## Installation
 
@@ -157,9 +158,9 @@ Age
 
 - Same goes for excludes func check if "h" or "e" or "l" or "o" is present in the string if anyone of them does then
   just set correct to false
-
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## Bugs and Issues
-
 If you encounter any bugs or issues, feel free
 to [open an issue at github](https://github.com/vakhariaheet/verifierjs/issues) or email me to
 <heetkv@gmail.com>. I also always like to hear from you, if you’re using my code.
