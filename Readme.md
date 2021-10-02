@@ -40,7 +40,7 @@ const {Verifier, anyone} = require('verifierjs');
 </script>
 ```
 
-##### Note
+### Note
 
 Color conversion functions are transferred to [color-converter](https://www.npmjs.com/package/color-convertor)
 
