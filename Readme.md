@@ -33,10 +33,12 @@ const {Verifier, anyone} = require('verifierjs');
 
 ```html
 <!-- Vanilla JS -->
-<script src="https://unpkg.com/browse/verifierjs/dist/index.min.js">
-	<script>
-	    <script>
-	            const {Verifier,anyone} = verifierjs;
+<!-- Minified Version-->
+<script src="https://unpkg.com/verifierjs"></script>
+<!-- UnMinified Version-->
+<script src="https://unpkg.com/verifierjs/dist/index.umd.js"></script>
+<script>
+	const { Verifier, anyone } = verifierjs;
 </script>
 ```
 
@@ -149,7 +151,7 @@ Age
 1. anyone:
 
 ```JavaScript
- new Verifier("heldajsjfsa").includes(anyone("hello")).correct // return true
+ new Verifier("HeyThere").includes(anyone("hello")).correct // return true
 ```
 
 - What it basically does is that it tells the includes function that if string(which is to verify) contains "h" or "e"
