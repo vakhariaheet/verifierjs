@@ -10,8 +10,9 @@ interface errorsObj {
 const lengthRegex = (lengthRequired: number | string) => {
 	let upperlimit = '',
 		lowerlimit = '0';
-	if (!lengthRequired)
-		throw Error('Verifier.isLengthen lengthRequired not Specified');
+	if (!lengthRequired) {
+		throw Error('Verifier.isLengthen: lengthRequired not Specified');
+	}
 	if (typeof lengthRequired === 'string') {
 		lengthRequired.split(' ').map((len) => {
 			if (len.includes('gt')) {
@@ -24,7 +25,34 @@ const lengthRegex = (lengthRequired: number | string) => {
 	}
 	return { upperlimit, lowerlimit };
 };
-
+/**
+ * disables all regex special characters from string
+ * @param regex string
+ * @returns {string} regex string
+ */
+const regextoString = (regex: string) => {
+	let newString = regex;
+	const specialChars = [
+		'\\',
+		'^',
+		'$',
+		'*',
+		'+',
+		'.',
+		'|',
+		'?',
+		'(',
+		')',
+		'[',
+		']',
+		'{',
+		'}',
+	];
+	specialChars.forEach((char) => {
+		newString = newString.replace(char, `\\${char}`);
+	});
+	return newString;
+};
 /**
  *
  * @param  {object} customRegexObj : custom regex object {[errName] :regex,...}
@@ -43,21 +71,21 @@ const checkCustomRegex = (customRegexObj: any, value: string): errorsObj => {
  * It basically tells the functions(which supports `anyone`)
  * if anyone of the character present in `vstr` is there then verify it
  *
- * - Can be used on `includes`,`excludes`
+ * - Can be used on `includes`,`excludes`,`startsWith`,`endsWith`
  * @param vstr Verification string
  * @example
  * new Verifier("heldajsjfsa").includes(anyone("hello")).correct // return true
  *
- * // What it basically does is that it tells the includes function that if string(which is to verify) contains "h" or "e" or "l" or "o" if anyone of them does then just check if remaining functions in the chain are passed if they had then just set correct to true
+ * - // What it basically does is that it tells the includes function that if string(which is to verify) contains "h" or "e" or "l" or "o" if anyone of them does then just check if remaining functions in the chain are passed if they had then just set correct to true
  *
- * // Same goes for excludes func check if "h" or "e" or "l" or "o" is present in the string if anyone of them does then just set correct to false
+ * - // Same goes for excludes func check if "h" or "e" or "l" or "o" is present in the string if anyone of them does then just set correct to false
  *
  *
  */
 export const anyone = (vstr: string) => {
 	if (!vstr) throw Error('verifierjs.anyone vstr not specified');
 
-	return `[${vstr}]`;
+	return { regex: `[${regextoString(vstr)}]` };
 };
 
 /**
@@ -82,7 +110,7 @@ export class Verifier {
 	correct: boolean;
 	/** A detailed Form of `correct` */
 	details: {
-		[property: string]: boolean;
+		[errorName: string]: boolean;
 	};
 
 	constructor(_value: string) {
@@ -97,13 +125,18 @@ export class Verifier {
 	 * - Adds `email` property in `details` obj
 	 * - Also affects `correct`
 	 * - Also can be chained behind or before any other chainable verification methods
+	 * - You can also pass custom regex
 	 * @example
 	 * new Verifier('example@domain.co.org').isEmail().correct => true
 	 * new Verifier('wrongEmail@.co').isEmail().details.email => false
 	 */
-	isEmail() {
-		let correct;
-		correct = /\w+@\w+\.(\w+)+/.test(this.value);
+	isEmail(customRegex?: RegExp) {
+		let correct: boolean = false;
+		if (customRegex && customRegex instanceof RegExp) {
+			correct = customRegex.test(this.value);
+		} else {
+			correct = /\w+@\w+\.(\w+)+/.test(this.value);
+		}
 		this.correct = this.#verifyCorrect(correct);
 		this.details.email = correct;
 
@@ -145,7 +178,33 @@ export class Verifier {
 
 		return this;
 	}
+	/**
+	 * Checks if the value is a valid url
+	 * - Adds `link` property in `details` obj
+	 * - Also affects `correct`
+	 * - Also can be chained behind or before any other chainable verification methods
+	 * @param {RegExp} customRegex : custom regex to check (optional)
+	 * @example
+	 * new Verifier('https://google.com').isLink().correct => true
+	 * new Verifier('https://www.google.com').isLink().correct => true
+	 * new Verifier('http://example.com').isLink().details.link => true
+	 * new Verifier('google.com').isLink().details.link => false
+	 *
+	 */
+	isLink(customRegex?: RegExp) {
+		let correct: boolean = false;
+		if (customRegex && customRegex instanceof RegExp) {
+			correct = customRegex.test(this.value);
+		} else {
+			correct = /(https|http):\/\/(www.)?([\w\.:])+(\.\w)+(\/([\w/-])+)?/g.test(
+				this.value
+			);
+		}
 
+		this.correct = this.#verifyCorrect(correct);
+		this.details.link = correct;
+		return this;
+	}
 	/**  Checks Username
 	 * - Default Username syntax:
 	 *    1. Username should only start with a-z,A-Z
@@ -155,7 +214,7 @@ export class Verifier {
 	 * - Also can be chained behind or before any other chainable verification methods
 	 * - to update length just add isLengthen function behind this function. or custom regex
 	 * @param {object} customRegexObj `optional` {[errName]:regex,...}
-	 *  @example
+	 * @example
 	 * new Verifier('username').isUsername().correct => true
 	 * new Verifier('$wrongUsername').isUsername().correct => false
 	 * new Verifier('wrong$Username').isUsername().correct => false
@@ -251,8 +310,11 @@ export class Verifier {
 	includes(vstr: string | { regex: string }) {
 		let correct = false;
 		if (!vstr) throw Error('Verifier.includes vstr not specified');
-		correct = new RegExp(`${vstr}{1,}`).test(this.value);
-
+		if (typeof vstr === 'string') {
+			correct = new RegExp(`${regextoString(vstr)}{1,}`).test(this.value);
+		} else if (typeof vstr === 'object' && vstr.regex) {
+			correct = new RegExp(`${vstr.regex}{1,}`).test(this.value);
+		}
 		this.details.includes = correct;
 		this.correct = this.#verifyCorrect(correct);
 		return this;
@@ -269,17 +331,75 @@ export class Verifier {
 	 * new Verifier("hello").excludes(anyone("bye")).correct => false
 	 * new Verifier("hey!hello").excludes("hello").details.excludes => false
 	 */
-	excludes(vstr: string) {
+	excludes(vstr: string | { regex: string }) {
 		if (!vstr) throw Error('Verifier.excludes vstr not specified');
-		let correct: boolean;
-
-		correct = !new RegExp(`${vstr}{1,}`).test(this.value);
-
+		let correct: boolean = false;
+		if (typeof vstr === 'string') {
+			correct = !new RegExp(`${regextoString(vstr)}{1,}`).test(this.value);
+		}
+		if (typeof vstr === 'object' && vstr.regex) {
+			correct = !new RegExp(`${vstr.regex}{1,}`).test(this.value);
+		}
 		this.details.excludes = correct;
 		this.correct = this.#verifyCorrect(correct);
 		return this;
 	}
+	/**
+	 * Checks Whether `this.value` starts with a specific string(or set of characters if `anyone` function in passed) or specific regex
+	 * @param {string | RegExp } vstr : string or regex to be matched ( you can also pass `anyone` function as param)
+	 * - Adds `startsWith` property in `details` obj
+	 * - Also affects `correct`
+	 * - Also can be chained behind or before any other chainable verification methods
+	 * @example
+	 * new Verifier("hello").startsWith("h").correct => true
+	 * new Verifier("hello").startsWith(anyone("hwd")).correct => true
+	 *
+	 *
+	 */
+	startsWith(vstr: string | RegExp | { regex: string }) {
+		if (!vstr) throw Error('Verifier.startsWith: vstr not specified');
+		let correct: boolean = false;
 
+		if (typeof vstr === 'string') {
+			correct = this.value.startsWith(regextoString(vstr));
+		} else if (vstr instanceof RegExp) {
+			console.log('regex', vstr);
+
+			correct = vstr.test(this.value);
+		} else if (typeof vstr === 'object' && vstr.regex) {
+			correct = new RegExp(`^${vstr.regex}`).test(this.value);
+		}
+
+		this.details.startsWith = correct;
+		this.correct = this.#verifyCorrect(correct);
+		return this;
+	}
+	/**
+	 * Checks Whether `this.value` ends with a specific string(or set of characters if `anyone` function in passed) or specific regex
+	 * @param {string | RegExp } vstr : string or regex to be matched ( you can also pass `anyone` function as param)
+	 * - Adds `endsWith` property in `details` obj
+	 * - Also affects `correct`
+	 * - Also can be chained behind or before any other chainable verification methods
+	 * @example
+	 * new Verifier("hello").endsWith("lo").correct => true
+	 * new Verifier("hello").endsWith(anyone("ok")).details.endsWith => true
+	 * new Verifier("hello").endsWith("w").correct => false
+	 * new Verifier("hello").endsWith(anyone("nwt")).details.endsWith => false
+	 **/
+	endsWith(vstr: string | RegExp | { regex: string }) {
+		if (!vstr) throw Error('Verifier.endsWith: vstr not specified');
+		let correct: boolean = false;
+		if (typeof vstr === 'string') {
+			correct = this.value.endsWith(regextoString(vstr));
+		} else if (vstr instanceof RegExp) {
+			correct = vstr.test(this.value);
+		} else if (typeof vstr === 'object' && vstr.regex) {
+			correct = new RegExp(`${vstr.regex}$`).test(this.value);
+		}
+		this.details.endsWith = correct;
+		this.correct = this.#verifyCorrect(correct);
+		return this;
+	}
 	/**
      * - For all properties default is false
      * - Adds `consistOf` property in `details` obj
@@ -375,8 +495,8 @@ export class Verifier {
 	 * @returns {number} age
 	 * - Not a chainable Property
 	 * @example
-	 * new Verifier('2005-02-22').ageCalc() => 16
-	 * new Verifier('2000-02-22').ageCalc() => 21
+	 * new Verifier('2005-02-22').ageCalc() => 17 (As of 27 March 2022)
+	 * new Verifier('2000-02-22').ageCalc() => 22 (As of 27 March 2022)
 	 */
 	//**  Date Format : YY-MM -DD
 	ageCalc(): number {

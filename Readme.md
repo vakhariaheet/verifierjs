@@ -60,6 +60,7 @@ new Verifier('secret').isPassword().correct // returns false
 new Verifier('secreT@123').isPassword().correct // returns true
 new Verifier('secret').isPassword(/.{1,}/).correct // returns true
 new Verifier('secret').isPassword({length: /.{1,}/}).details // returns{lenght:true}
+
 // isEmail
 new Verifier('wrongEmail@.com').isEmail().correct // returns false
 new Verifier('example@example.com.in').isEmail().correct// returns true
@@ -69,15 +70,33 @@ new Verifier('exact').isLengthen(5).correct // returns true
 new Verifier('greaterthan').isLengthen('gt10').correct // returns true
 new Verifier('lowerthan').isLengthen('lt10').correct // returns true
 
-//excludes
+// excludes
 new Verifier("hello").excludes("bye").correct //returns true
 new Verifier("hello").excludes(anyone("bye")).correct //returns false
 new Verifier("hey!hello").excludes("hello").details.excludes //returns false
 
-//includes
+// includes
 new Verifier("hello").includes("bye").correct //returns false
 new Verifier("hello").includes(anyone("bye")).correct //returns true
 new Verifier("hey!hello").includes("hello").details.includes //returns true
+
+// startsWith
+new Verifier("Hey Buddy").startsWith("Hey").correct // return true
+new Verifier("Hey Buddy").startsWith("hehe").correct // return false
+new Verifier("Hey Buddy").startsWith(anyone("Hey")).details.startsWith // return true
+new Verifier("Hey Buddy").startsWith(/[hello]/i).details.startsWith // return true
+
+// endsWith
+new Verifier("Hey Buddy").endsWith("uddy").correct // return true
+new Verifier("Hey Buddy").endsWith("hehe").correct // return false
+new Verifier("Hey Buddy").endsWith(anyone("Hey")).details.endsWith // return true
+new Verifier("Hey Buddy").endsWith(/[hello]$/i).details.endsWith // return false
+
+// isLink
+new Verifier('https://google.com').isLink().correct // returns true
+new Verifier('https://www.google.com').isLink().correct // returns true
+new Verifier('http://example.com').isLink(/^(http|https)/).details.link // returns true
+new Verifier('google.com').isLink().details.link // returns false
 
 // consistOf
 new Verifier("helloG").consistOf({
@@ -93,6 +112,7 @@ new Verifier("hello_G").consistOf({
     uppercaseAlpha: true,
     lowercaseAlpha: true,
 }).correct //returns false
+
 
 // ageCalc
 new Verifier('2005-02-22').ageCalc() //  16
@@ -136,9 +156,12 @@ Age
 2. isPassword
 3. isEmail
 4. isLengthen
-5. consistOf
-6. includes
-7. excludes
+5. includes
+6. excludes
+7. startsWith
+8. endsWith
+9. isLink
+10. consistOf
 
 #### Non Chainable Methods
 
