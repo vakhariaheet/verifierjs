@@ -1,6 +1,6 @@
 {
 	"name": "verifierjs",
-	"version": "0.0.0-development",
+	"version": "0.5.2",
 	"description": "functions for validation",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
